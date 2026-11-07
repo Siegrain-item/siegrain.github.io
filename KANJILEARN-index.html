@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>漢字道場 · benkyou kataru N5–N4</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+background:#f4efe4;background-image:radial-gradient(circle at 15% 0%,#fffdf8 0%,transparent 45%),
+radial-gradient(circle at 90% 100%,#ece2cf 0%,transparent 40%);background-attachment:fixed;
+color:#241f19;min-height:100vh}
+.jp{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif}
+.app{max-width:780px;margin:0 auto;padding:22px 16px 44px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;display:grid;place-items:center;border-radius:13px;background:#b5342b;
+color:#fff;font-size:25px;line-height:1;box-shadow:0 6px 16px rgba(181,52,43,.28)}
+.brand h1{margin:0;font-size:19px}
+.brand p{margin:3px 0 0;font-size:12px;color:#8a7f72}
+.levels{display:flex;gap:3px;background:#e9e1d2;padding:4px;border-radius:12px;flex-wrap:wrap}
+.levels button{border:0;background:transparent;color:#6b6156;font-weight:700;font-size:12.5px;
+padding:7px 11px;border-radius:9px;cursor:pointer;font-family:inherit}
+.levels button.on{background:#fffdf8;color:#241f19;box-shadow:0 2px 6px rgba(0,0,0,.09)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid #e2dac9;margin-bottom:18px;overflow-x:auto;
+-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:0 0 auto;min-width:82px;border:0;background:transparent;padding:11px 8px;font-size:13.5px;
+font-weight:700;color:#8a7f72;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+font-family:inherit;white-space:nowrap}
+.tabs button.on{color:#b5342b;border-bottom-color:#b5342b}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;
+color:#8a7f72;margin-bottom:8px;flex-wrap:wrap}
+.badge{background:#efe7d8;color:#7a6f61;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+.track{height:4px;background:#e7dfd0;border-radius:99px;overflow:hidden;margin-bottom:18px}
+.track i{display:block;height:100%;background:linear-gradient(90deg,#d9694f,#b5342b);border-radius:99px;transition:width .35s}
+.track.timer{height:3px;margin-top:-14px}
+.track.timer i{background:linear-gradient(90deg,#e8a33d,#d9773f)}
+.linkbtn{border:0;background:none;color:#b5342b;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;padding:0}
+.flashcard{perspective:1400px;height:400px;cursor:pointer;margin-bottom:16px}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1)}
+.flashcard.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;background:#fffdf8;border:1px solid #e6ddcc;
+border-radius:22px;box-shadow:0 14px 34px -12px rgba(60,40,20,.22);display:flex;flex-direction:column;
+align-items:center;justify-content:center;padding:26px;text-align:center;overflow:hidden}
+.fc-back{transform:rotateY(180deg);justify-content:flex-start;padding-top:22px;overflow-y:auto}
+.fc-top-badge{position:absolute;top:14px;left:14px}
+.fc-top-badge .tag{font-size:10px;font-weight:700;letter-spacing:.8px;background:#241f19;color:#f4d35e;
+padding:3px 8px;border-radius:6px}
+.kanji{font-size:clamp(92px,30vw,148px);line-height:1}
+.hint{margin-top:22px;font-size:11px;color:#a99e8f;letter-spacing:1.2px;text-transform:uppercase}
+.kanji-sm{font-size:44px;line-height:1;color:#b5342b;margin-bottom:14px}
+.meaning{font-size:22px;font-weight:700;margin-bottom:18px;line-height:1.3}
+.readings{display:flex;flex-direction:column;gap:9px;font-size:15px;color:#4a4238;align-items:flex-start;width:100%}
+.readings>div{width:100%;text-align:left}
+.readings .lbl{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;
+background:#f0e8d8;color:#8a7f72;font-size:12px;font-weight:700;margin-right:9px}
+.romaji{font-size:11.5px;color:#a99e8f;font-style:italic;margin-left:6px;letter-spacing:.3px;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.fc-vocab{margin-top:14px;width:100%;text-align:left;font-size:13.5px;line-height:1.7;
+background:#faf5ea;border-radius:12px;padding:12px 14px;color:#4a4238}
+.fc-vocab .v-lbl{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#a99e8f;margin-bottom:6px}
+.fc-vocab .v-item{margin-bottom:5px}
+.fc-vocab .v-read{color:#8a7f72;font-size:12px}
+.row{display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:14px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:active{transform:scale(.98)}
+.btn-again{background:#fdecea;color:#b5342b}
+.btn-good{background:#e6f2ea;color:#2e7d5b}
+.btn-ghost{background:#efe8db;color:#6b6156}
+.empty{text-align:center;padding:40px 20px}
+.empty-k{font-size:76px;color:#b5342b;line-height:1;margin-bottom:16px}
+.empty h2{margin:0 0 8px;font-size:22px}
+.empty p{margin:0 0 24px;color:#8a7f72;font-size:14px;line-height:1.5}
+.setup{background:#fffdf8;border:1px solid #e6ddcc;border-radius:22px;padding:22px 20px;
+box-shadow:0 14px 34px -14px rgba(60,40,20,.22)}
+.setup-title{margin:0 0 20px;font-size:17px}
+.field{margin-bottom:18px}
+.field>label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+font-size:11px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#8a7f72;margin-bottom:9px}
+.field>label .lbl-note{font-size:10.5px;color:#b5342b;font-weight:700;text-transform:none;letter-spacing:.3px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1.5px solid #e6ddcc;background:#fffdf8;border-radius:11px;padding:9px 14px;
+font-size:14px;font-weight:600;color:#4a4238;cursor:pointer;font-family:inherit}
+.chip.on{background:#b5342b;border-color:#b5342b;color:#fff}
+.chip:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.chip .cn{font-size:11px;opacity:.55;margin-left:5px}
+.chip.on .cn{opacity:.9}
+.setup-note{font-size:12px;color:#a99e8f;margin:-4px 0 0;line-height:1.5}
+.setup-note.warn{color:#b5342b}
+.count-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.count-input{font-family:inherit;font-size:16px;font-weight:700;border:1.5px solid #e6ddcc;
+border-radius:11px;padding:9px 12px;width:110px;background:#fffdf8;color:#241f19;text-align:center;-moz-appearance:textfield}
+.count-input::-webkit-outer-spin-button,.count-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.count-input:focus{outline:none;border-color:#b5342b;box-shadow:0 0 0 3px rgba(181,52,43,.12)}
+.count-input:disabled{opacity:.45;cursor:not-allowed}
+.count-presets{display:flex;gap:5px;flex-wrap:wrap}
+.count-presets button{border:1.5px solid #e6ddcc;background:#fffdf8;border-radius:9px;padding:7px 10px;
+font-size:12.5px;font-weight:700;color:#6b6156;cursor:pointer;font-family:inherit}
+.q-label{font-size:13px;color:#8a7f72;text-align:center;margin-bottom:14px}
+.q-box{background:#fffdf8;border:1px solid #e6ddcc;border-radius:22px;padding:30px 20px;text-align:center;
+min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+box-shadow:0 14px 34px -14px rgba(60,40,20,.22);margin-bottom:16px}
+.q-kanji{font-size:clamp(78px,26vw,118px);line-height:1}
+.q-text{font-size:clamp(20px,5.5vw,27px);font-weight:700;line-height:1.3}
+.q-word{font-size:clamp(34px,9vw,48px);line-height:1.15;font-weight:600}
+.q-sub{font-size:13px;color:#8a7f72;margin-top:12px;font-style:italic}
+.opts{display:grid;gap:10px}
+.opt{font-family:inherit;text-align:left;background:#fffdf8;border:1.5px solid #e6ddcc;border-radius:14px;
+padding:14px 16px;font-size:16px;font-weight:600;color:#241f19;cursor:pointer;display:flex;
+align-items:center;gap:12px;width:100%}
+.opt .key{width:24px;height:24px;flex:none;display:grid;place-items:center;border-radius:7px;
+background:#f1eade;color:#8a7f72;font-size:12px;font-weight:700}
+.opt .opt-k{font-size:28px;line-height:1}
+.opt.correct{background:#e6f2ea;border-color:#2e7d5b;color:#1f5c41}
+.opt.correct .key{background:#2e7d5b;color:#fff}
+.opt.wrong{background:#fdecea;border-color:#c0392b;color:#8f2a20}
+.opt.wrong .key{background:#c0392b;color:#fff}
+.opt:disabled{cursor:default}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:9px}
+.tile{background:#fffdf8;border:1px solid #e6ddcc;border-radius:14px;padding:11px 6px;text-align:center;cursor:pointer}
+.tile.known{background:#f0f7f2;border-color:#cfe6da}
+.tile .t-k{font-size:30px;line-height:1.1}
+.tile .t-m{font-size:10.5px;color:#8a7f72;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.overlay{position:fixed;inset:0;background:rgba(36,31,25,.45);display:grid;place-items:center;padding:20px;z-index:50}
+.sheet{background:#fffdf8;border-radius:22px;padding:28px 24px;max-width:440px;width:100%;
+box-shadow:0 20px 50px -12px rgba(0,0,0,.45);max-height:85vh;overflow-y:auto}
+.sheet-kanji{font-size:82px;line-height:1.1;color:#b5342b;text-align:center}
+.sheet-meaning{font-size:20px;font-weight:700;text-align:center;margin:8px 0 16px}
+.sheet-readings{display:flex;flex-direction:column;gap:8px;font-size:15px;color:#4a4238;
+align-items:flex-start;margin-bottom:16px;width:100%}
+.sheet-readings .lbl{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;
+background:#f0e8d8;color:#8a7f72;font-size:12px;font-weight:700;margin-right:9px}
+.sheet-vocab{font-size:14px;line-height:1.7;padding:14px 16px;background:#faf5ea;border-radius:12px;margin-bottom:16px}
+.sheet-vocab .v-lbl{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#a99e8f;margin-bottom:8px}
+.sheet-vocab .v-item{margin-bottom:5px}
+.sheet-vocab .v-read{color:#8a7f72;font-size:12.5px}
+.sheet-meta{display:flex;gap:6px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.section-lbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a99e8f;margin-bottom:10px}
+.missed{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:0 0 24px}
+.missed span{background:#fffdf8;border:1px solid #e6ddcc;border-radius:10px;padding:6px 12px;
+font-size:20px;line-height:1.2;font-weight:600}
+.kbd{text-align:center;font-size:11.5px;color:#a99e8f;margin:14px 0 0}
+.stats{margin-top:28px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:12px;color:#8a7f72}
+.stat{background:#ece4d5;border-radius:999px;padding:6px 13px}
+.stat b{color:#241f19}
+.bunpou-list{display:flex;flex-direction:column;gap:10px}
+.bunpou-card{background:#fffdf8;border:1px solid #e6ddcc;border-radius:16px;padding:16px 18px;
+box-shadow:0 8px 20px -12px rgba(60,40,20,.18)}
+.bunpou-head{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.bunpou-pat{font-size:22px;font-weight:700;color:#b5342b;line-height:1.3;margin-bottom:4px}
+.bunpou-romaji{font-size:12.5px;color:#8a7f72;font-style:italic;margin-bottom:8px}
+.bunpou-mean{font-size:14.5px;font-weight:600;margin-bottom:12px}
+.bunpou-ex{font-size:15px;margin-bottom:2px;color:#241f19}
+.bunpou-exr{font-size:12px;color:#8a7f72;font-style:italic;margin-bottom:2px}
+.bunpou-ext{font-size:12.5px;color:#6b6156;padding-top:8px;border-top:1px dashed #e6ddcc;margin-top:8px}
+.phrase-group{margin-bottom:22px}
+.phrase-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.phrase-card{background:#fffdf8;border:1px solid #e6ddcc;border-radius:12px;padding:12px 14px}
+.phrase-jp{font-size:17px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.phrase-rom{font-size:11.5px;color:#8a7f72;font-style:italic;margin-bottom:6px}
+.phrase-id{font-size:13px;color:#4a4238}
+.dict-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.dict-card{background:#fffdf8;border:1px solid #e6ddcc;border-radius:12px;padding:12px 14px}
+.dict-jp{font-size:18px;font-weight:700;line-height:1.3}
+.dict-kana{font-size:14px;color:#8a7f72;font-weight:500;margin-left:3px}
+.dict-rom{font-size:11.5px;color:#a99e8f;font-style:italic;margin:2px 0 6px}
+.dict-mean{font-size:13.5px;color:#241f19;margin-bottom:8px}
+.dict-meta{display:flex;gap:6px;flex-wrap:wrap}
+.dict-search{width:100%;font-family:inherit;font-size:15px;font-weight:600;border:1.5px solid #e6ddcc;
+border-radius:12px;padding:11px 14px;background:#fffdf8;color:#241f19;margin-bottom:12px}
+.dict-search:focus{outline:none;border-color:#b5342b;box-shadow:0 0 0 3px rgba(181,52,43,.12)}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+<div class="brand">
+<span class="logo jp">漢</span>
+<div><h1>Renshuu</h1><p>JLPT N5 · N4 · Daily Life</p></div>
+</div>
+<div class="levels" id="levels">
+<button data-level="N5" class="on">N5</button>
+<button data-level="N4">N4</button>
+<button data-level="LIFE">Daily</button>
+<button data-level="ALL">All</button>
+</div>
+</header>
+<nav class="tabs" id="tabs">
+<button data-mode="cards" class="on">Flashcards</button>
+<button data-mode="quiz">Quiz</button>
+<button data-mode="list">Kanji</button>
+<button data-mode="bunpou">Bunpou</button>
+<button data-mode="phrases">Frasa</button>
+<button data-mode="dict">Kamus</button>
+</nav>
+<main id="view"></main>
+<footer class="stats" id="stats"></footer>
+</div>
+<script>
+function kanaToRomaji(str){
+  if(!str||str==='—')return'';
+  const k2h=c=>String.fromCharCode(c.charCodeAt(0)-0x60);
+  let s=str.replace(/[\u30a1-\u30f6]/g,k2h);
+  s=s.replace(/[、。！？]/g,'');
+  const m={'きゃ':'kya','きゅ':'kyu','きょ':'kyo','しゃ':'sha','しゅ':'shu','しょ':'sho',
+    'ちゃ':'cha','ちゅ':'chu','ちょ':'cho','にゃ':'nya','にゅ':'nyu','にょ':'nyo',
+    'ひゃ':'hya','ひゅ':'hyu','ひょ':'hyo','みゃ':'mya','みゅ':'myu','みょ':'myo',
+    'りゃ':'rya','りゅ':'ryu','りょ':'ryo','ぎゃ':'gya','ぎゅ':'gyu','ぎょ':'gyo',
+    'じゃ':'ja','じゅ':'ju','じょ':'jo','びゃ':'bya','びゅ':'byu','びょ':'byo',
+    'ぴゃ':'pya','ぴゅ':'pyu','ぴょ':'pyo',
+    'あ':'a','い':'i','う':'u','え':'e','お':'o','か':'ka','き':'ki','く':'ku','け':'ke','こ':'ko',
+    'が':'ga','ぎ':'gi','ぐ':'gu','げ':'ge','ご':'go','さ':'sa','し':'shi','す':'su','せ':'se','そ':'so',
+    'ざ':'za','じ':'ji','ず':'zu','ぜ':'ze','ぞ':'zo','た':'ta','ち':'chi','つ':'tsu','て':'te','と':'to',
+    'だ':'da','ぢ':'ji','づ':'zu','で':'de','ど':'do','な':'na','に':'ni','ぬ':'nu','ね':'ne','の':'no',
+    'は':'ha','ひ':'hi','ふ':'fu','へ':'he','ほ':'ho','ば':'ba','び':'bi','ぶ':'bu','べ':'be','ぼ':'bo',
+    'ぱ':'pa','ぴ':'pi','ぷ':'pu','ぺ':'pe','ぽ':'po','ま':'ma','み':'mi','む':'mu','め':'me','も':'mo',
+    'や':'ya','ゆ':'yu','よ':'yo','ら':'ra','り':'ri','る':'ru','れ':'re','ろ':'ro',
+    'わ':'wa','を':'o','ん':'n','ー':'','　':' ',' ':' '};
+  const keys=Object.keys(m).sort((a,b)=>b.length-a.length);
+  let out='',i=0,double=false;
+  while(i<s.length){
+    if(s[i]==='っ'){double=true;i++;continue}
+    let hit=false;
+    for(const k of keys){if(s.substr(i,k.length)===k){
+      let r=m[k];if(double&&/^[a-z]/.test(r))r=r[0]+r;
+      double=false;out+=r;i+=k.length;hit=true;break}}
+    if(!hit){out+=s[i];i++}}
+  return out;
+}
+</script>
+<script>
+const KANJI=[
+["日","day, sun","ニチ、ジツ","ひ、か","N5",[["日本","にほん","Japan"],["毎日","まいにち","every day"]]],
+["一","one","イチ","ひと-つ","N5",[["一つ","ひとつ","one"],["一人","ひとり","one person"]]],
+["国","country","コク","くに","N5",[["外国","がいこく","foreign country"],["中国","ちゅうごく","China"]]],
+["人","person","ジン、ニン","ひと","N5",[["日本人","にほんじん","Japanese"],["大人","おとな","adult"]]],
+["年","year","ネン","とし","N5",[["今年","ことし","this year"],["去年","きょねん","last year"]]],
+["大","big","ダイ、タイ","おお-きい","N5",[["大きい","おおきい","big"],["大学","だいがく","university"]]],
+["十","ten","ジュウ","とお","N5",[["十月","じゅうがつ","October"],["二十歳","はたち","20 years old"]]],
+["二","two","ニ","ふた-つ","N5",[["二つ","ふたつ","two"],["二人","ふたり","two people"]]],
+["本","book, origin","ホン","もと","N5",[["本屋","ほんや","bookstore"],["本当","ほんとう","really"]]],
+["中","middle","チュウ","なか","N5",[["中","なか","inside"],["中学校","ちゅうがっこう","middle school"]]],
+["長","long, leader","チョウ","なが-い","N5",[["長い","ながい","long"],["社長","しゃちょう","president"]]],
+["出","exit","シュツ","で-る、だ-す","N5",[["出る","でる","to exit"],["出口","でぐち","exit"]]],
+["三","three","サン","み-っつ","N5",[["三つ","みっつ","three"],["三月","さんがつ","March"]]],
+["時","time, hour","ジ","とき","N5",[["時間","じかん","time"],["三時","さんじ","3 o'clock"]]],
+["行","to go","コウ","い-く","N5",[["行く","いく","to go"],["旅行","りょこう","travel"]]],
+["見","to see","ケン","み-る","N5",[["見る","みる","to see"],["花見","はなみ","cherry viewing"]]],
+["月","moon, month","ゲツ、ガツ","つき","N5",[["月曜日","げつようび","Monday"],["月","つき","moon"]]],
+["分","minute","フン、ブン","わ-かる","N5",[["分かる","わかる","to understand"],["自分","じぶん","oneself"]]],
+["後","after","ゴ、コウ","あと、うし-ろ","N5",[["後ろ","うしろ","behind"],["午後","ごご","afternoon"]]],
+["前","before, front","ゼン","まえ","N5",[["前","まえ","front"],["名前","なまえ","name"]]],
+["生","life, born","セイ","い-きる、う-まれる","N5",[["先生","せんせい","teacher"],["学生","がくせい","student"]]],
+["五","five","ゴ","いつ-つ","N5",[["五つ","いつつ","five"],["五月","ごがつ","May"]]],
+["間","interval","カン","あいだ","N5",[["時間","じかん","time"],["人間","にんげん","human"]]],
+["上","up, above","ジョウ","うえ","N5",[["上","うえ","above"],["上手","じょうず","skilful"]]],
+["東","east","トウ","ひがし","N5",[["東京","とうきょう","Tokyo"],["東口","ひがしぐち","east exit"]]],
+["四","four","シ","よ-ん","N5",[["四つ","よっつ","four"],["四月","しがつ","April"]]],
+["今","now","コン","いま","N5",[["今","いま","now"],["今日","きょう","today"]]],
+["金","gold, money","キン","かね","N5",[["お金","おかね","money"],["金曜日","きんようび","Friday"]]],
+["九","nine","キュウ","ここの-つ","N5",[["九つ","ここのつ","nine"],["九月","くがつ","September"]]],
+["入","enter","ニュウ","はい-る","N5",[["入る","はいる","to enter"],["入口","いりぐち","entrance"]]],
+["学","study","ガク","まな-ぶ","N5",[["学校","がっこう","school"],["学生","がくせい","student"]]],
+["高","high, expensive","コウ","たか-い","N5",[["高い","たかい","high"],["高校","こうこう","high school"]]],
+["円","circle, yen","エン","まる-い","N5",[["百円","ひゃくえん","100 yen"],["円い","まるい","round"]]],
+["子","child","シ","こ","N5",[["子供","こども","child"],["女の子","おんなのこ","girl"]]],
+["外","outside","ガイ","そと","N5",[["外国","がいこく","foreign country"],["外","そと","outside"]]],
+["八","eight","ハチ","や-っつ","N5",[["八つ","やっつ","eight"],["八月","はちがつ","August"]]],
+["六","six","ロク","む-っつ","N5",[["六つ","むっつ","six"],["六月","ろくがつ","June"]]],
+["下","below","カ、ゲ","した","N5",[["下","した","below"],["地下鉄","ちかてつ","subway"]]],
+["来","come","ライ","く-る","N5",[["来る","くる","to come"],["来年","らいねん","next year"]]],
+["気","spirit, air","キ","—","N5",[["元気","げんき","healthy"],["天気","てんき","weather"]]],
+["小","small","ショウ","ちい-さい","N5",[["小さい","ちいさい","small"],["小説","しょうせつ","novel"]]],
+["七","seven","シチ","なな-つ","N5",[["七つ","ななつ","seven"],["七月","しちがつ","July"]]],
+["山","mountain","サン","やま","N5",[["山","やま","mountain"],["富士山","ふじさん","Mt. Fuji"]]],
+["話","talk","ワ","はな-す","N5",[["話す","はなす","to speak"],["電話","でんわ","telephone"]]],
+["女","woman","ジョ","おんな","N5",[["女","おんな","woman"],["女性","じょせい","female"]]],
+["北","north","ホク","きた","N5",[["北","きた","north"],["北海道","ほっかいどう","Hokkaido"]]],
+["午","noon","ゴ","—","N5",[["午前","ごぜん","morning"],["午後","ごご","afternoon"]]],
+["百","hundred","ヒャク","—","N5",[["百","ひゃく","hundred"],["三百","さんびゃく","300"]]],
+["書","write","ショ","か-く","N5",[["書く","かく","to write"],["図書館","としょかん","library"]]],
+["先","previous","セン","さき","N5",[["先生","せんせい","teacher"],["先週","せんしゅう","last week"]]],
+["名","name","メイ","な","N5",[["名前","なまえ","name"],["有名","ゆうめい","famous"]]],
+["川","river","セン","かわ","N5",[["川","かわ","river"],["小川","おがわ","stream"]]],
+["千","thousand","セン","ち","N5",[["千","せん","thousand"],["千円","せんえん","1000 yen"]]],
+["水","water","スイ","みず","N5",[["水","みず","water"],["水曜日","すいようび","Wednesday"]]],
+["半","half","ハン","なか-ば","N5",[["半","はん","half"],["半分","はんぶん","half"]]],
+["男","man","ダン","おとこ","N5",[["男","おとこ","man"],["男性","だんせい","male"]]],
+["西","west","セイ","にし","N5",[["西","にし","west"],["関西","かんさい","Kansai"]]],
+["電","electricity","デン","—","N5",[["電車","でんしゃ","train"],["電話","でんわ","telephone"]]],
+["校","school","コウ","—","N5",[["学校","がっこう","school"],["高校","こうこう","high school"]]],
+["語","language","ゴ","かた-る","N5",[["日本語","にほんご","Japanese"],["英語","えいご","English"]]],
+["土","soil","ド、ト","つち","N5",[["土曜日","どようび","Saturday"],["土地","とち","land"]]],
+["木","tree","モク、ボク","き","N5",[["木","き","tree"],["木曜日","もくようび","Thursday"]]],
+["聞","hear, ask","ブン","き-く","N5",[["聞く","きく","to hear"],["新聞","しんぶん","newspaper"]]],
+["食","eat, food","ショク","た-べる","N5",[["食べる","たべる","to eat"],["食堂","しょくどう","cafeteria"]]],
+["車","car","シャ","くるま","N5",[["車","くるま","car"],["自転車","じてんしゃ","bicycle"]]],
+["何","what","カ","なに","N5",[["何","なに","what"],["何時","なんじ","what time"]]],
+["南","south","ナン","みなみ","N5",[["南","みなみ","south"],["南口","みなみぐち","south exit"]]],
+["万","ten thousand","マン","—","N5",[["一万","いちまん","10000"],["万一","まんいち","in case"]]],
+["毎","every","マイ","—","N5",[["毎日","まいにち","every day"],["毎週","まいしゅう","every week"]]],
+["白","white","ハク","しろ-い","N5",[["白い","しろい","white"],["面白い","おもしろい","interesting"]]],
+["天","heaven","テン","あま","N5",[["天気","てんき","weather"],["天国","てんごく","heaven"]]],
+["母","mother","ボ","はは","N5",[["母","はは","mother"],["お母さん","おかあさん","mother"]]],
+["火","fire","カ","ひ","N5",[["火","ひ","fire"],["火曜日","かようび","Tuesday"]]],
+["右","right","ウ","みぎ","N5",[["右","みぎ","right"],["右手","みぎて","right hand"]]],
+["読","read","ドク","よ-む","N5",[["読む","よむ","to read"],["読書","どくしょ","reading"]]],
+["友","friend","ユウ","とも","N5",[["友達","ともだち","friend"],["親友","しんゆう","best friend"]]],
+["左","left","サ","ひだり","N5",[["左","ひだり","left"],["左手","ひだりて","left hand"]]],
+["休","rest","キュウ","やす-む","N5",[["休む","やすむ","to rest"],["休み","やすみ","holiday"]]],
+["父","father","フ","ちち","N5",[["父","ちち","father"],["お父さん","おとうさん","father"]]],
+["雨","rain","ウ","あめ","N5",[["雨","あめ","rain"],["大雨","おおあめ","heavy rain"]]],
+["会","meet","カイ","あ-う","N5",[["会う","あう","to meet"],["会社","かいしゃ","company"]]],
+["同","same","ドウ","おな-じ","N5",[["同じ","おなじ","same"],["同時","どうじ","simultaneous"]]],
+["事","thing","ジ","こと","N5",[["事","こと","thing"],["仕事","しごと","work"]]],
+["自","self","ジ、シ","みずか-ら","N5",[["自分","じぶん","oneself"],["自転車","じてんしゃ","bicycle"]]],
+["社","company","シャ","やしろ","N5",[["会社","かいしゃ","company"],["神社","じんじゃ","shrine"]]],
+["発","depart","ハツ","—","N5",[["出発","しゅっぱつ","departure"],["発音","はつおん","pronunciation"]]],
+["者","person","シャ","もの","N5",[["医者","いしゃ","doctor"],["若者","わかもの","young person"]]],
+["地","ground","チ、ジ","—","N5",[["地下鉄","ちかてつ","subway"],["地図","ちず","map"]]],
+["業","business","ギョウ","—","N5",[["授業","じゅぎょう","class"],["卒業","そつぎょう","graduation"]]],
+["方","direction","ホウ","かた","N5",[["方法","ほうほう","method"],["夕方","ゆうがた","evening"]]],
+["新","new","シン","あたら-しい","N5",[["新しい","あたらしい","new"],["新聞","しんぶん","newspaper"]]],
+["場","place","ジョウ","ば","N5",[["場所","ばしょ","place"],["工場","こうじょう","factory"]]],
+["員","member","イン","—","N5",[["会社員","かいしゃいん","employee"],["店員","てんいん","shop clerk"]]],
+["立","stand","リツ","た-つ","N5",[["立つ","たつ","to stand"],["国立","こくりつ","national"]]],
+["開","open","カイ","あ-ける","N5",[["開ける","あける","to open"],["開始","かいし","start"]]],
+["手","hand","シュ","て","N5",[["手","て","hand"],["手紙","てがみ","letter"]]],
+["力","power","リョク、リキ","ちから","N5",[["力","ちから","power"],["協力","きょうりょく","cooperation"]]],
+["問","question","モン","と-う","N5",[["問題","もんだい","problem"],["質問","しつもん","question"]]],
+["代","generation","ダイ、タイ","か-わる","N5",[["時代","じだい","era"],["代表","だいひょう","representative"]]],
+["明","bright","メイ","あか-るい","N5",[["明るい","あかるい","bright"],["説明","せつめい","explanation"]]],
+["悪","bad","アク","わる-い","N4",[["悪い","わるい","bad"],["最悪","さいあく","worst"]]],
+["安","cheap, safe","アン","やす-い","N4",[["安い","やすい","cheap"],["安全","あんぜん","safety"]]],
+["暗","dark","アン","くら-い","N4",[["暗い","くらい","dark"],["暗記","あんき","memorisation"]]],
+["医","doctor","イ","—","N4",[["医者","いしゃ","doctor"],["医学","いがく","medicine"]]],
+["意","idea","イ","—","N4",[["意味","いみ","meaning"],["意見","いけん","opinion"]]],
+["育","raise","イク","そだ-てる","N4",[["育てる","そだてる","to raise"],["教育","きょういく","education"]]],
+["院","institution","イン","—","N4",[["病院","びょういん","hospital"],["入院","にゅういん","hospitalisation"]]],
+["飲","drink","イン","の-む","N4",[["飲む","のむ","to drink"],["飲料","いんりょう","beverage"]]],
+["運","carry, luck","ウン","はこ-ぶ","N4",[["運ぶ","はこぶ","to carry"],["運動","うんどう","exercise"]]],
+["映","reflect","エイ","うつ-る","N4",[["映画","えいが","film"],["映画館","えいがかん","cinema"]]],
+["英","England","エイ","—","N4",[["英語","えいご","English"],["英国","えいこく","UK"]]],
+["駅","station","エキ","—","N4",[["駅","えき","station"],["駅員","えきいん","station staff"]]],
+["屋","roof, shop","オク","や","N4",[["本屋","ほんや","bookstore"],["部屋","へや","room"]]],
+["温","warm","オン","あたた-かい","N4",[["温かい","あたたかい","warm"],["温度","おんど","temperature"]]],
+["化","change","カ","ば-ける","N4",[["文化","ぶんか","culture"],["変化","へんか","change"]]],
+["荷","luggage","カ","に","N4",[["荷物","にもつ","luggage"],["入荷","にゅうか","arrival of goods"]]],
+["界","world","カイ","—","N4",[["世界","せかい","world"],["限界","げんかい","limit"]]],
+["海","sea","カイ","うみ","N4",[["海","うみ","sea"],["海外","かいがい","overseas"]]],
+["階","floor","カイ","—","N4",[["二階","にかい","2nd floor"],["階段","かいだん","stairs"]]],
+["寒","cold","カン","さむ-い","N4",[["寒い","さむい","cold"],["寒冷","かんれい","cold"]]],
+["感","feeling","カン","—","N4",[["感じる","かんじる","to feel"],["感謝","かんしゃ","gratitude"]]],
+["漢","Chinese, kanji","カン","—","N4",[["漢字","かんじ","kanji"],["漢方","かんぽう","Chinese medicine"]]],
+["館","building","カン","やかた","N4",[["図書館","としょかん","library"],["博物館","はくぶつかん","museum"]]],
+["岸","shore","ガン","きし","N4",[["海岸","かいがん","coast"],["対岸","たいがん","opposite shore"]]],
+["起","get up","キ","お-きる","N4",[["起きる","おきる","to get up"],["起床","きしょう","getting up"]]],
+["期","period","キ","—","N4",[["期間","きかん","period"],["期待","きたい","expectation"]]],
+["客","guest","キャク","—","N4",[["お客さん","おきゃくさん","customer"],["観客","かんきゃく","audience"]]],
+["究","research","キュウ","きわ-める","N4",[["研究","けんきゅう","research"],["究極","きゅうきょく","ultimate"]]],
+["急","hurry","キュウ","いそ-ぐ","N4",[["急ぐ","いそぐ","to hurry"],["急行","きゅうこう","express train"]]],
+["級","grade","キュウ","—","N4",[["上級","じょうきゅう","advanced"],["学級","がっきゅう","class"]]],
+["宮","palace","キュウ","みや","N4",[["宮殿","きゅうでん","palace"],["神宮","じんぐう","shrine"]]],
+["球","ball","キュウ","たま","N4",[["野球","やきゅう","baseball"],["地球","ちきゅう","Earth"]]],
+["去","leave","キョ","さ-る","N4",[["去年","きょねん","last year"],["過去","かこ","past"]]],
+["橋","bridge","キョウ","はし","N4",[["橋","はし","bridge"],["歩道橋","ほどうきょう","pedestrian bridge"]]],
+["局","bureau","キョク","—","N4",[["郵便局","ゆうびんきょく","post office"],["薬局","やっきょく","pharmacy"]]],
+["曲","song, bend","キョク","ま-がる","N4",[["曲","きょく","song"],["曲がる","まがる","to turn"]]],
+["銀","silver","ギン","—","N4",[["銀行","ぎんこう","bank"],["銀色","ぎんいろ","silver"]]],
+["区","ward","ク","—","N4",[["区","く","ward"],["区役所","くやくしょ","ward office"]]],
+["苦","painful","ク","くる-しい","N4",[["苦しい","くるしい","painful"],["苦労","くろう","hardship"]]],
+["君","you","クン","きみ","N4",[["君","きみ","you"],["諸君","しょくん","everyone"]]],
+["係","in charge","ケイ","かかり","N4",[["係","かかり","person in charge"],["関係","かんけい","relationship"]]],
+["軽","light","ケイ","かる-い","N4",[["軽い","かるい","light"],["軽食","けいしょく","light meal"]]],
+["血","blood","ケツ","ち","N4",[["血","ち","blood"],["血液","けつえき","blood"]]],
+["決","decide","ケツ","き-める","N4",[["決める","きめる","to decide"],["決定","けってい","decision"]]],
+["研","polish","ケン","—","N4",[["研究","けんきゅう","research"],["研修","けんしゅう","training"]]],
+["県","prefecture","ケン","—","N4",[["県","けん","prefecture"],["県庁","けんちょう","prefectural office"]]],
+["湖","lake","コ","みずうみ","N4",[["湖","みずうみ","lake"],["湖畔","こはん","lakeside"]]],
+["向","face","コウ","む-く","N4",[["向く","むく","to face"],["方向","ほうこう","direction"]]],
+["幸","happiness","コウ","しあわ-せ","N4",[["幸せ","しあわせ","happiness"],["幸運","こううん","good luck"]]],
+["港","harbour","コウ","みなと","N4",[["港","みなと","harbour"],["空港","くうこう","airport"]]],
+["号","number","ゴウ","—","N4",[["号室","ごうしつ","room no."],["信号","しんごう","traffic light"]]],
+["根","root","コン","ね","N4",[["根","ね","root"],["大根","だいこん","daikon"]]],
+["祭","festival","サイ","まつ-り","N4",[["祭り","まつり","festival"],["文化祭","ぶんかさい","school festival"]]],
+["皿","plate","—","さら","N4",[["皿","さら","plate"],["皿洗い","さらあらい","dishwashing"]]],
+["仕","serve, do","シ","つか-える","N4",[["仕事","しごと","work"],["仕方","しかた","method"]]],
+["死","die","シ","し-ぬ","N4",[["死ぬ","しぬ","to die"],["死亡","しぼう","death"]]],
+["使","use","シ","つか-う","N4",[["使う","つかう","to use"],["使い方","つかいかた","how to use"]]],
+["始","begin","シ","はじ-める","N4",[["始まる","はじまる","to begin"],["開始","かいし","start"]]],
+["指","finger","シ","ゆび","N4",[["指","ゆび","finger"],["指輪","ゆびわ","ring"]]],
+["歯","tooth","シ","は","N4",[["歯","は","tooth"],["歯医者","はいしゃ","dentist"]]],
+["次","next","ジ","つぎ","N4",[["次","つぎ","next"],["次回","じかい","next time"]]],
+["寺","temple","ジ","てら","N4",[["お寺","おてら","temple"],["寺院","じいん","temple"]]],
+["持","hold","ジ","も-つ","N4",[["持つ","もつ","to hold"],["気持ち","きもち","feeling"]]],
+["式","ceremony","シキ","—","N4",[["式","しき","ceremony"],["結婚式","けっこんしき","wedding"]]],
+["実","reality","ジツ","み","N4",[["実は","じつは","actually"],["実験","じっけん","experiment"]]],
+["写","copy","シャ","うつ-す","N4",[["写真","しゃしん","photograph"],["写す","うつす","to copy"]]],
+["主","master, main","シュ","ぬし","N4",[["主人","しゅじん","husband"],["主な","おもな","main"]]],
+["守","protect","シュ","まも-る","N4",[["守る","まもる","to protect"],["守衛","しゅえい","guard"]]],
+["取","take","シュ","と-る","N4",[["取る","とる","to take"],["受け取る","うけとる","to receive"]]],
+["酒","alcohol","シュ","さけ","N4",[["お酒","おさけ","alcohol"],["日本酒","にほんしゅ","sake"]]],
+["受","receive","ジュ","う-ける","N4",[["受ける","うける","to receive"],["受付","うけつけ","reception"]]],
+["拾","pick up","シュウ","ひろ-う","N4",[["拾う","ひろう","to pick up"],["拾い物","ひろいもの","found item"]]],
+["終","end","シュウ","お-わる","N4",[["終わる","おわる","to end"],["終電","しゅうでん","last train"]]],
+["習","learn","シュウ","なら-う","N4",[["習う","ならう","to learn"],["練習","れんしゅう","practice"]]],
+["集","collect","シュウ","あつ-める","N4",[["集める","あつめる","to collect"],["集合","しゅうごう","gathering"]]],
+["住","live","ジュウ","す-む","N4",[["住む","すむ","to live"],["住所","じゅうしょ","address"]]],
+["重","heavy","ジュウ","おも-い","N4",[["重い","おもい","heavy"],["重要","じゅうよう","important"]]],
+["宿","inn","シュク","やど","N4",[["宿題","しゅくだい","homework"],["宿泊","しゅくはく","accommodation"]]],
+["春","spring","シュン","はる","N4",[["春","はる","spring"],["春休み","はるやすみ","spring holiday"]]],
+["所","place","ショ","ところ","N4",[["所","ところ","place"],["住所","じゅうしょ","address"]]],
+["暑","hot","ショ","あつ-い","N4",[["暑い","あつい","hot"],["猛暑","もうしょ","intense heat"]]],
+["消","erase","ショウ","け-す","N4",[["消す","けす","to erase"],["消える","きえる","to disappear"]]],
+["商","commerce","ショウ","—","N4",[["商品","しょうひん","product"],["商売","しょうばい","business"]]],
+["勝","win","ショウ","か-つ","N4",[["勝つ","かつ","to win"],["勝利","しょうり","victory"]]],
+["乗","ride","ジョウ","の-る","N4",[["乗る","のる","to ride"],["乗り物","のりもの","vehicle"]]],
+["色","colour","ショク","いろ","N4",[["色","いろ","colour"],["茶色","ちゃいろ","brown"]]],
+["心","heart","シン","こころ","N4",[["心","こころ","heart"],["心配","しんぱい","worry"]]],
+["真","true","シン","ま","N4",[["真実","しんじつ","truth"],["写真","しゃしん","photograph"]]],
+["神","god","シン","かみ","N4",[["神","かみ","god"],["神社","じんじゃ","shrine"]]],
+["親","parent","シン","おや","N4",[["親","おや","parent"],["両親","りょうしん","parents"]]],
+["図","map","ズ","はか-る","N4",[["図","ず","figure"],["地図","ちず","map"]]],
+["数","number","スウ","かず","N4",[["数","かず","number"],["数学","すうがく","mathematics"]]],
+["世","world","セイ","よ","N4",[["世界","せかい","world"],["世代","せだい","generation"]]],
+["静","quiet","セイ","しず-か","N4",[["静か","しずか","quiet"],["冷静","れいせい","calm"]]],
+["説","explain","セツ","と-く","N4",[["説明","せつめい","explanation"],["小説","しょうせつ","novel"]]],
+["石","stone","セキ","いし","N4",[["石","いし","stone"],["宝石","ほうせき","jewel"]]],
+["赤","red","セキ","あか-い","N4",[["赤い","あかい","red"],["赤ちゃん","あかちゃん","baby"]]],
+["切","cut","セツ","き-る","N4",[["切る","きる","to cut"],["切手","きって","stamp"]]],
+["雪","snow","セツ","ゆき","N4",[["雪","ゆき","snow"],["大雪","おおゆき","heavy snow"]]],
+["線","line","セン","—","N4",[["線","せん","line"],["線路","せんろ","track"]]],
+["船","ship","セン","ふね","N4",[["船","ふね","ship"],["漁船","ぎょせん","fishing boat"]]],
+["全","all","ゼン","すべ-て","N4",[["全部","ぜんぶ","all"],["全然","ぜんぜん","not at all"]]],
+["送","send","ソウ","おく-る","N4",[["送る","おくる","to send"],["放送","ほうそう","broadcast"]]],
+["族","family","ゾク","—","N4",[["家族","かぞく","family"],["民族","みんぞく","ethnic group"]]],
+["続","continue","ゾク","つづ-く","N4",[["続く","つづく","to continue"],["連続","れんぞく","series"]]],
+["太","fat, thick","タイ","ふと-い","N4",[["太い","ふとい","thick"],["太陽","たいよう","sun"]]],
+["台","stand","ダイ","—","N4",[["台所","だいどころ","kitchen"],["台風","たいふう","typhoon"]]],
+["谷","valley","コク","たに","N4",[["谷","たに","valley"],["渓谷","けいこく","ravine"]]],
+["昼","noon","チュウ","ひる","N4",[["昼","ひる","noon"],["昼ご飯","ひるごはん","lunch"]]],
+["池","pond","チ","いけ","N4",[["池","いけ","pond"],["電池","でんち","battery"]]],
+["虫","insect","チュウ","むし","N4",[["虫","むし","insect"],["昆虫","こんちゅう","insect"]]],
+["注","pour, note","チュウ","そそ-ぐ","N4",[["注意","ちゅうい","caution"],["注文","ちゅうもん","order"]]],
+["朝","morning","チョウ","あさ","N4",[["朝","あさ","morning"],["朝ご飯","あさごはん","breakfast"]]],
+["町","town","チョウ","まち","N4",[["町","まち","town"],["下町","したまち","downtown"]]],
+["鳥","bird","チョウ","とり","N4",[["鳥","とり","bird"],["小鳥","ことり","small bird"]]],
+["弟","younger brother","テイ","おとうと","N4",[["弟","おとうと","younger brother"],["兄弟","きょうだい","siblings"]]],
+["店","shop","テン","みせ","N4",[["店","みせ","shop"],["喫茶店","きっさてん","café"]]],
+["転","turn","テン","ころ-ぶ","N4",[["転ぶ","ころぶ","to fall"],["運転","うんてん","driving"]]],
+["都","metropolis","ト","みやこ","N4",[["都会","とかい","city"],["京都","きょうと","Kyoto"]]],
+["度","degree","ド","—","N4",[["度","ど","degree"],["今度","こんど","next time"]]],
+["投","throw","トウ","な-げる","N4",[["投げる","なげる","to throw"],["投票","とうひょう","voting"]]],
+["豆","bean","トウ","まめ","N4",[["豆","まめ","bean"],["豆腐","とうふ","tofu"]]],
+["島","island","トウ","しま","N4",[["島","しま","island"],["半島","はんとう","peninsula"]]],
+["湯","hot water","トウ","ゆ","N4",[["お湯","おゆ","hot water"],["銭湯","せんとう","public bath"]]],
+["登","climb","トウ","のぼ-る","N4",[["登る","のぼる","to climb"],["登山","とざん","mountain climbing"]]],
+["等","equal","トウ","ひと-しい","N4",[["等しい","ひとしい","equal"],["平等","びょうどう","equality"]]],
+["動","move","ドウ","うご-く","N4",[["動く","うごく","to move"],["動物","どうぶつ","animal"]]],
+["道","road","ドウ","みち","N4",[["道","みち","road"],["北海道","ほっかいどう","Hokkaido"]]],
+["特","special","トク","—","N4",[["特別","とくべつ","special"],["特急","とっきゅう","express train"]]],
+["肉","meat","ニク","—","N4",[["肉","にく","meat"],["牛肉","ぎゅうにく","beef"]]],
+["鳴","sound","メイ","な-く","N4",[["鳴く","なく","to chirp"],["鳴る","なる","to ring"]]],
+["箱","box","—","はこ","N4",[["箱","はこ","box"],["小箱","こばこ","small box"]]],
+["馬","horse","バ","うま","N4",[["馬","うま","horse"],["競馬","けいば","horse racing"]]],
+["買","buy","バイ","か-う","N4",[["買う","かう","to buy"],["買い物","かいもの","shopping"]]],
+["売","sell","バイ","う-る","N4",[["売る","うる","to sell"],["売り場","うりば","sales floor"]]],
+["麦","wheat","バク","むぎ","N4",[["麦","むぎ","wheat"],["小麦","こむぎ","wheat"]]],
+["飯","meal","ハン","めし","N4",[["ご飯","ごはん","rice, meal"],["炊飯器","すいはんき","rice cooker"]]],
+["飛","fly","ヒ","と-ぶ","N4",[["飛ぶ","とぶ","to fly"],["飛行機","ひこうき","airplane"]]],
+["鼻","nose","ビ","はな","N4",[["鼻","はな","nose"],["鼻血","はなぢ","nosebleed"]]],
+["筆","brush","ヒツ","ふで","N4",[["筆","ふで","brush"],["鉛筆","えんぴつ","pencil"]]],
+["氷","ice","ヒョウ","こおり","N4",[["氷","こおり","ice"],["氷水","こおりみず","ice water"]]],
+["表","surface","ヒョウ","おもて","N4",[["表","おもて","surface"],["発表","はっぴょう","announcement"]]],
+["病","illness","ビョウ","やまい","N4",[["病気","びょうき","illness"],["病院","びょういん","hospital"]]],
+["品","goods","ヒン","しな","N4",[["品物","しなもの","goods"],["食品","しょくひん","food products"]]],
+["負","lose","フ","ま-ける","N4",[["負ける","まける","to lose"],["勝負","しょうぶ","match"]]],
+["不","not","フ","—","N4",[["不便","ふべん","inconvenient"],["不安","ふあん","anxiety"]]],
+["付","attach","フ","つ-ける","N4",[["付ける","つける","to attach"],["付近","ふきん","neighbourhood"]]],
+["夫","husband","フ","おっと","N4",[["夫","おっと","husband"],["夫婦","ふうふ","couple"]]],
+["服","clothes","フク","—","N4",[["服","ふく","clothes"],["洋服","ようふく","Western clothes"]]],
+["福","fortune","フク","—","N4",[["福","ふく","fortune"],["幸福","こうふく","happiness"]]],
+["物","thing","ブツ","もの","N4",[["物","もの","thing"],["食べ物","たべもの","food"]]],
+["平","flat, peace","ヘイ","たい-ら","N4",[["平ら","たいら","flat"],["平和","へいわ","peace"]]],
+["返","return","ヘン","かえ-す","N4",[["返す","かえす","to return"],["返事","へんじ","reply"]]],
+["変","change","ヘン","か-わる","N4",[["変わる","かわる","to change"],["大変","たいへん","tough"]]],
+["便","convenience","ベン","たよ-り","N4",[["便利","べんり","convenient"],["郵便","ゆうびん","mail"]]],
+["勉","diligence","ベン","—","N4",[["勉強","べんきょう","study"],["勤勉","きんべん","diligence"]]],
+["歩","walk","ホ","ある-く","N4",[["歩く","あるく","to walk"],["散歩","さんぽ","stroll"]]],
+["放","release","ホウ","はな-す","N4",[["放す","はなす","to release"],["放送","ほうそう","broadcast"]]],
+["味","taste","ミ","あじ","N4",[["味","あじ","taste"],["意味","いみ","meaning"]]],
+["無","nothing","ム","—","N4",[["無理","むり","impossible"],["無料","むりょう","free"]]],
+["役","role","ヤク","—","N4",[["役","やく","role"],["役所","やくしょ","government office"]]],
+["約","promise, about","ヤク","—","N4",[["約束","やくそく","promise"],["予約","よやく","reservation"]]],
+["薬","medicine","ヤク","くすり","N4",[["薬","くすり","medicine"],["薬局","やっきょく","pharmacy"]]],
+["油","oil","ユ","あぶら","N4",[["油","あぶら","oil"],["醤油","しょうゆ","soy sauce"]]],
+["有","exist","ユウ","あ-る","N4",[["有名","ゆうめい","famous"],["有効","ゆうこう","valid"]]],
+["遊","play","ユウ","あそ-ぶ","N4",[["遊ぶ","あそぶ","to play"],["遊園地","ゆうえんち","amusement park"]]],
+["予","in advance","ヨ","—","N4",[["予定","よてい","schedule"],["予約","よやく","reservation"]]],
+["羊","sheep","ヨウ","ひつじ","N4",[["羊","ひつじ","sheep"],["羊毛","ようもう","wool"]]],
+["洋","ocean, Western","ヨウ","—","N4",[["洋服","ようふく","Western clothes"],["太平洋","たいへいよう","Pacific"]]],
+["葉","leaf","ヨウ","は","N4",[["葉","は","leaf"],["言葉","ことば","word, language"]]],
+["様","manner","ヨウ","さま","N4",[["様","さま","Mr./Ms."],["様子","ようす","state"]]],
+["用","use","ヨウ","もち-いる","N4",[["用","よう","business"],["使用","しよう","use"]]],
+["理","reason","リ","—","N4",[["理由","りゆう","reason"],["料理","りょうり","cooking"]]],
+["旅","travel","リョ","たび","N4",[["旅行","りょこう","travel"],["旅館","りょかん","Japanese inn"]]],
+["両","both","リョウ","—","N4",[["両方","りょうほう","both"],["両親","りょうしん","parents"]]],
+["料","materials, fee","リョウ","—","N4",[["料理","りょうり","cooking"],["料金","りょうきん","fee"]]],
+["量","quantity","リョウ","—","N4",[["量","りょう","quantity"],["大量","たいりょう","large amount"]]],
+["林","woods","リン","はやし","N4",[["林","はやし","woods"],["森林","しんりん","forest"]]],
+["礼","thanks","レイ","—","N4",[["礼","れい","bow"],["お礼","おれい","thanks"]]],
+["冷","cold, cool","レイ","つめ-たい","N4",[["冷たい","つめたい","cold"],["冷蔵庫","れいぞうこ","refrigerator"]]],
+["練","practice","レン","ね-る","N4",[["練習","れんしゅう","practice"],["訓練","くんれん","training"]]],
+["連","connect","レン","つ-れる","N4",[["連絡","れんらく","contact"],["連続","れんぞく","series"]]],
+["和","harmony","ワ","—","N4",[["和食","わしょく","Japanese food"],["平和","へいわ","peace"]]],
+["押","push","オウ","お-す","LIFE",[["押す","おす","to push"],["押し入れ","おしいれ","closet"]]],
+["引","pull","イン","ひ-く","LIFE",[["引く","ひく","to pull"],["引っ越す","ひっこす","to move house"]]],
+["閉","close","ヘイ","し-める","LIFE",[["閉める","しめる","to close"],["閉店","へいてん","closing of shop"]]],
+["口","mouth","コウ","くち","LIFE",[["口","くち","mouth"],["入口","いりぐち","entrance"]]],
+["改","renew","カイ","あらた-める","LIFE",[["改札","かいさつ","ticket gate"],["改善","かいぜん","improvement"]]],
+["札","tag","サツ","ふだ","LIFE",[["改札","かいさつ","ticket gate"],["切符","きっぷ","ticket"]]],
+["符","token","フ","—","LIFE",[["切符","きっぷ","ticket"],["符号","ふごう","sign"]]],
+["降","get off","コウ","お-りる","LIFE",[["降りる","おりる","to get off"],["降車","こうしゃ","alighting"]]],
+["駐","park","チュウ","—","LIFE",[["駐車場","ちゅうしゃじょう","parking lot"],["駐輪場","ちゅうりんじょう","bicycle parking"]]],
+["禁","prohibit","キン","—","LIFE",[["禁止","きんし","prohibition"],["禁煙","きんえん","no smoking"]]],
+["煙","smoke","エン","けむり","LIFE",[["禁煙","きんえん","no smoking"],["煙草","たばこ","tobacco"]]],
+["草","grass","ソウ","くさ","LIFE",[["煙草","たばこ","tobacco"],["草","くさ","grass"]]],
+["危","danger","キ","あぶ-ない","LIFE",[["危ない","あぶない","dangerous"],["危険","きけん","danger"]]],
+["険","risky","ケン","—","LIFE",[["危険","きけん","danger"],["保険","ほけん","insurance"]]],
+["保","protect","ホ","たも-つ","LIFE",[["保険","ほけん","insurance"],["保存","ほぞん","preservation"]]],
+["証","proof","ショウ","—","LIFE",[["保証","ほしょう","guarantee"],["証明","しょうめい","proof"]]],
+["待","wait","タイ","ま-つ","LIFE",[["待つ","まつ","to wait"],["待合室","まちあいしつ","waiting room"]]],
+["合","fit, meet","ゴウ","あ-う","LIFE",[["合う","あう","to fit"],["試合","しあい","match"]]],
+["室","room","シツ","—","LIFE",[["教室","きょうしつ","classroom"],["会議室","かいぎしつ","meeting room"]]],
+["務","duty","ム","つと-める","LIFE",[["事務所","じむしょ","office"],["勤務","きんむ","work"]]],
+["堂","hall","ドウ","—","LIFE",[["食堂","しょくどう","cafeteria"],["公会堂","こうかいどう","public hall"]]],
+["喫","consume","キツ","—","LIFE",[["喫茶店","きっさてん","café"],["喫煙","きつえん","smoking"]]],
+["茶","tea","チャ","—","LIFE",[["お茶","おちゃ","tea"],["茶色","ちゃいろ","brown"]]],
+["魚","fish","ギョ","さかな","LIFE",[["魚","さかな","fish"],["金魚","きんぎょ","goldfish"]]],
+["野","field","ヤ","の","LIFE",[["野菜","やさい","vegetables"],["分野","ぶんや","field"]]],
+["菜","vegetable","サイ","な","LIFE",[["野菜","やさい","vegetables"],["白菜","はくさい","Chinese cabbage"]]],
+["丼","bowl","ドン","—","LIFE",[["丼","どんぶり","bowl"],["牛丼","ぎゅうどん","beef bowl"]]],
+["焼","grill","ショウ","や-く","LIFE",[["焼肉","やきにく","grilled meat"],["夕焼け","ゆうやけ","sunset"]]],
+["洗","wash","セン","あら-う","LIFE",[["洗う","あらう","to wash"],["洗濯","せんたく","laundry"]]],
+["濯","rinse","タク","—","LIFE",[["洗濯","せんたく","laundry"],["洗濯機","せんたくき","washing machine"]]],
+["機","machine","キ","—","LIFE",[["洗濯機","せんたくき","washing machine"],["飛行機","ひこうき","airplane"]]],
+["空","sky, empty","クウ","そら","LIFE",[["空港","くうこう","airport"],["空気","くうき","air"]]],
+["鉄","iron","テツ","—","LIFE",[["地下鉄","ちかてつ","subway"],["鉄道","てつどう","railway"]]],
+["画","picture","ガ","—","LIFE",[["映画","えいが","film"],["漫画","まんが","comic"]]],
+["博","broad","ハク","—","LIFE",[["博物館","はくぶつかん","museum"],["博士","はかせ","doctor"]]],
+["郵","mail","ユウ","—","LIFE",[["郵便局","ゆうびんきょく","post office"],["郵便","ゆうびん","mail"]]],
+["紙","paper","シ","かみ","LIFE",[["手紙","てがみ","letter"],["紙","かみ","paper"]]],
+["封","seal","フウ","—","LIFE",[["封筒","ふうとう","envelope"],["封書","ふうしょ","sealed letter"]]],
+["筒","tube","トウ","つつ","LIFE",[["封筒","ふうとう","envelope"],["水筒","すいとう","water bottle"]]],
+["配","distribute","ハイ","くば-る","LIFE",[["心配","しんぱい","worry"],["配達","はいたつ","delivery"]]],
+["達","reach","タツ","—","LIFE",[["配達","はいたつ","delivery"],["友達","ともだち","friend"]]],
+["各","each","カク","おのおの","LIFE",[["各駅","かくえき","every station"],["各国","かっこく","each country"]]],
+["停","stop","テイ","—","LIFE",[["停車","ていしゃ","stopping"],["停留所","ていりゅうじょ","bus stop"]]],
+["留","stay","リュウ","と-める","LIFE",[["停留所","ていりゅうじょ","bus stop"],["留学","りゅうがく","studying abroad"]]],
+["元","origin","ゲン","もと","LIFE",[["元気","げんき","healthy"],["元日","がんじつ","New Year's Day"]]],
+["猫","cat","ビョウ","ねこ","LIFE",[["猫","ねこ","cat"],["子猫","こねこ","kitten"]]],
+["犬","dog","ケン","いぬ","LIFE",[["犬","いぬ","dog"],["子犬","こいぬ","puppy"]]],
+["花","flower","カ","はな","LIFE",[["花","はな","flower"],["花見","はなみ","cherry viewing"]]],
+["足","foot, leg","ソク","あし","LIFE",[["足","あし","foot"],["足りる","たりる","to be enough"]]],
+["目","eye","モク","め","LIFE",[["目","め","eye"],["目的","もくてき","purpose"]]],
+["耳","ear","ジ","みみ","LIFE",[["耳","みみ","ear"],["耳鳴り","みみなり","tinnitus"]]],
+["首","neck","シュ","くび","LIFE",[["首","くび","neck"],["手首","てくび","wrist"]]],
+["頭","head","トウ、ズ","あたま","LIFE",[["頭","あたま","head"],["頭痛","ずつう","headache"]]],
+["顔","face","ガン","かお","LIFE",[["顔","かお","face"],["笑顔","えがお","smile"]]],
+["声","voice","セイ","こえ","LIFE",[["声","こえ","voice"],["大声","おおごえ","loud voice"]]],
+["背","back, height","ハイ","せ","LIFE",[["背","せ","back"],["背広","せびろ","business suit"]]],
+["腹","belly","フク","はら","LIFE",[["腹","はら","belly"],["お腹","おなか","stomach"]]],
+["胸","chest","キョウ","むね","LIFE",[["胸","むね","chest"],["胸","むね","heart/feelings"]]],
+["肩","shoulder","ケン","かた","LIFE",[["肩","かた","shoulder"],["肩書き","かたがき","title"]]],
+["腕","arm","ワン","うで","LIFE",[["腕","うで","arm"],["腕時計","うでどけい","wristwatch"]]],
+["骨","bone","コツ","ほね","LIFE",[["骨","ほね","bone"],["骨折","こっせつ","bone fracture"]]]
+];
+
+const BUNPOU=[
+{lv:'N5',cat:'Dasar',p:'〜は〜です',r:'~ wa ~ desu',m:'A adalah B (formal)',e:'私は学生です。',er:'Watashi wa gakusei desu.',et:'Saya seorang pelajar.'},
+{lv:'N5',cat:'Dasar',p:'〜は〜じゃない',r:'~ wa ~ ja nai',m:'A bukan B (kasual)',e:'これは本じゃない。',er:'Kore wa hon ja nai.',et:'Ini bukan buku.'},
+{lv:'N5',cat:'Dasar',p:'〜は〜ですか',r:'~ wa ~ desu ka',m:'Apakah A adalah B?',e:'あなたは学生ですか。',er:'Anata wa gakusei desu ka.',et:'Apakah kamu pelajar?'},
+{lv:'N5',cat:'Partikel',p:'〜も',r:'~ mo',m:'juga / pun',e:'私も行きます。',er:'Watashi mo ikimasu.',et:'Saya juga pergi.'},
+{lv:'N5',cat:'Partikel',p:'〜の',r:'~ no',m:'kepunyaan / atribut',e:'私の本',er:'watashi no hon',et:'buku saya'},
+{lv:'N5',cat:'Partikel',p:'〜を',r:'~ o',m:'penanda objek',e:'ご飯を食べる。',er:'Gohan o taberu.',et:'Makan nasi.'},
+{lv:'N5',cat:'Partikel',p:'〜に',r:'~ ni',m:'arah / waktu / tujuan',e:'学校に行く。',er:'Gakkou ni iku.',et:'Pergi ke sekolah.'},
+{lv:'N5',cat:'Partikel',p:'〜で',r:'~ de',m:'tempat aksi / cara',e:'図書館で勉強する。',er:'Toshokan de benkyou suru.',et:'Belajar di perpustakaan.'},
+{lv:'N5',cat:'Partikel',p:'〜へ',r:'~ e',m:'arah (lebih lembut)',e:'日本へ行きます。',er:'Nihon e ikimasu.',et:'Pergi ke Jepang.'},
+{lv:'N5',cat:'Partikel',p:'〜と',r:'~ to',m:'dan (semua) / dengan',e:'友達と話す。',er:'Tomodachi to hanasu.',et:'Bicara dengan teman.'},
+{lv:'N5',cat:'Partikel',p:'〜や〜など',r:'~ ya ~ nado',m:'dan… (sebagian)',e:'りんごやみかんなど',er:'ringo ya mikan nado',et:'apel, jeruk, dll'},
+{lv:'N5',cat:'Partikel',p:'〜が',r:'~ ga',m:'penanda subjek',e:'猫がいる。',er:'Neko ga iru.',et:'Ada kucing.'},
+{lv:'N5',cat:'Partikel',p:'〜から / 〜まで',r:'~ kara / ~ made',m:'dari / sampai',e:'9時から5時まで',er:'ku-ji kara go-ji made',et:'dari jam 9 sampai jam 5'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ます',r:'~ masu',m:'KK bentuk sopan',e:'毎日勉強します。',er:'Mainichi benkyou shimasu.',et:'Setiap hari belajar.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ません',r:'~ masen',m:'KK negatif sopan',e:'お酒を飲みません。',er:'Osake o nomimasen.',et:'Tidak minum sake.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ました',r:'~ mashita',m:'KK bentuk lampau',e:'昨日映画を見ました。',er:'Kinou eiga o mimashita.',et:'Kemarin menonton film.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ませんでした',r:'~ masen deshita',m:'KK lampau negatif',e:'行きませんでした。',er:'Ikimasen deshita.',et:'Tidak pergi.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ましょう',r:'~ mashou',m:'Ayo lakukan',e:'行きましょう！',er:'Ikimashou!',et:'Ayo pergi!'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ませんか',r:'~ masen ka',m:'Maukah ~ ?',e:'一緒に行きませんか。',er:'Issho ni ikimasen ka.',et:'Mau pergi bersama?'},
+{lv:'N5',cat:'Kata Kerja',p:'〜てください',r:'~ te kudasai',m:'Tolong lakukan',e:'ゆっくり話してください。',er:'Yukkuri hanashite kudasai.',et:'Tolong bicara pelan.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜ています',r:'~ te imasu',m:'sedang ~ / status',e:'本を読んでいます。',er:'Hon o yonde imasu.',et:'Sedang membaca buku.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜たい',r:'~ tai',m:'ingin ~',e:'日本に行きたい。',er:'Nihon ni ikitai.',et:'Ingin pergi ke Jepang.'},
+{lv:'N5',cat:'Kata Kerja',p:'〜たことがある',r:'~ ta koto ga aru',m:'pernah ~',e:'京都に行ったことがある。',er:'Kyouto ni itta koto ga aru.',et:'Pernah ke Kyoto.'},
+{lv:'N5',cat:'Adjektiva',p:'い-keiyoushi',r:'i-adjective',m:'berakhiran い',e:'高い、安い、面白い',er:'takai, yasui, omoshiroi',et:'mahal, murah, menarik'},
+{lv:'N5',cat:'Adjektiva',p:'な-keiyoushi',r:'na-adjective',m:'berakhiran な',e:'静かな、きれいな',er:'shizuka na, kirei na',et:'tenang, cantik'},
+{lv:'N5',cat:'Adjektiva',p:'〜くない / 〜じゃない',r:'~ kunai / ~ ja nai',m:'bentuk negatif',e:'高くない / 静かじゃない',er:'takakunai / shizuka ja nai',et:'tidak mahal / tidak tenang'},
+{lv:'N5',cat:'Adjektiva',p:'〜かった / 〜だった',r:'~ katta / ~ datta',m:'bentuk lampau',e:'高かった / 静かだった',er:'takakatta / shizuka datta',et:'dulu mahal / dulu tenang'},
+{lv:'N5',cat:'Keberadaan',p:'〜があります / います',r:'~ ga arimasu / imasu',m:'ada (benda vs mahluk hidup)',e:'机の上に本があります。',er:'Tsukue no ue ni hon ga arimasu.',et:'Ada buku di atas meja.'},
+{lv:'N5',cat:'Keinginan',p:'〜が好き / 嫌い',r:'~ ga suki / kirai',m:'suka / tidak suka',e:'寿司が好きです。',er:'Sushi ga suki desu.',et:'Suka sushi.'},
+{lv:'N5',cat:'Keinginan',p:'〜がほしい',r:'~ ga hoshii',m:'ingin (benda)',e:'新しい車がほしい。',er:'Atarashii kuruma ga hoshii.',et:'Ingin mobil baru.'},
+{lv:'N5',cat:'Keahlian',p:'〜が上手 / 下手',r:'~ ga jouzu / heta',m:'pandai / tidak pandai',e:'彼は日本語が上手です。',er:'Kare wa nihongo ga jouzu desu.',et:'Dia pandai bahasa Jepang.'},
+{lv:'N5',cat:'Izin',p:'〜てもいいですか',r:'~ te mo ii desu ka',m:'Bolehkah ~ ?',e:'写真を撮ってもいいですか。',er:'Shashin o totte mo ii desu ka.',et:'Bolehkah memotret?'},
+{lv:'N5',cat:'Larangan',p:'〜てはいけません',r:'~ te wa ikemasen',m:'Tidak boleh ~',e:'ここに入ってはいけません。',er:'Koko ni haitte wa ikemasen.',et:'Tidak boleh masuk sini.'},
+{lv:'N5',cat:'Perbandingan',p:'AよりBのほうが〜',r:'A yori B no hou ga ~',m:'B lebih ~ daripada A',e:'夏より冬のほうが好き。',er:'Natsu yori fuyu no hou ga suki.',et:'Lebih suka musim dingin daripada musim panas.'},
+{lv:'N5',cat:'Alasan',p:'〜から',r:'~ kara',m:'karena',e:'時間がないから、急ごう。',er:'Jikan ga nai kara, isogou.',et:'Karena tidak ada waktu, ayo cepat.'},
+{lv:'N4',cat:'Aspek',p:'〜てしまう',r:'~ te shimau',m:'menyelesaikan / (menyesal)',e:'ケーキを食べてしまった。',er:'Keeki o tabete shimatta.',et:'Kue-nya habis termakan.'},
+{lv:'N4',cat:'Aspek',p:'〜てある',r:'~ te aru',m:'sudah ~ (sengaja)',e:'窓が開けてある。',er:'Mado ga akete aru.',et:'Jendela sudah dibuka.'},
+{lv:'N4',cat:'Aspek',p:'〜ておく',r:'~ te oku',m:'lakukan dulu (persiapan)',e:'予約しておく。',er:'Yoyaku shite oku.',et:'Pesan dulu.'},
+{lv:'N4',cat:'Aspek',p:'〜てみる',r:'~ te miru',m:'coba ~',e:'食べてみて。',er:'Tabete mite.',et:'Coba makan.'},
+{lv:'N4',cat:'Aspek',p:'〜てくる / 〜ていく',r:'~ te kuru / ~ te iku',m:'datang/pergi sambil ~',e:'持ってくる / 持っていく',er:'motte kuru / motte iku',et:'bawa kemari / bawa pergi'},
+{lv:'N4',cat:'Kabar',p:'〜そうだ (伝聞)',r:'~ sou da',m:'kabarnya ~',e:'明日雨が降るそうだ。',er:'Ashita ame ga furu sou da.',et:'Kabarnya besok hujan.'},
+{lv:'N4',cat:'Kesan',p:'〜そうだ (様態)',r:'~ sou da',m:'kelihatannya ~',e:'おいしそう！',er:'Oishisou!',et:'Kelihatannya enak!'},
+{lv:'N4',cat:'Kesan',p:'〜ようだ / 〜みたいだ',r:'~ you da / ~ mitai da',m:'sepertinya ~',e:'雨が降ったようだ。',er:'Ame ga futta you da.',et:'Sepertinya hujan turun.'},
+{lv:'N4',cat:'Kesan',p:'〜らしい',r:'~ rashii',m:'tampaknya ~ / khas ~',e:'彼は学生らしい。',er:'Kare wa gakusei rashii.',et:'Dia tampaknya pelajar.'},
+{lv:'N4',cat:'Dugaan',p:'〜かもしれない',r:'~ kamo shirenai',m:'mungkin ~',e:'明日来るかもしれない。',er:'Ashita kuru kamo shirenai.',et:'Mungkin besok datang.'},
+{lv:'N4',cat:'Dugaan',p:'〜はず',r:'~ hazu',m:'seharusnya ~',e:'彼はもう着いたはずだ。',er:'Kare wa mou tsuita hazu da.',et:'Dia seharusnya sudah tiba.'},
+{lv:'N4',cat:'Rencana',p:'〜つもり',r:'~ tsumori',m:'berniat ~',e:'留学するつもりです。',er:'Ryuugaku suru tsumori desu.',et:'Berniat belajar ke luar negeri.'},
+{lv:'N4',cat:'Rencana',p:'〜予定',r:'~ yotei',m:'dijadwalkan ~',e:'3時に出発する予定です。',er:'San-ji ni shuppatsu suru yotei desu.',et:'Dijadwalkan berangkat jam 3.'},
+{lv:'N4',cat:'Kondisi',p:'〜ば',r:'~ ba',m:'kalau ~ (kondisional)',e:'安ければ買います。',er:'Yasukereba kaimasu.',et:'Kalau murah, saya beli.'},
+{lv:'N4',cat:'Kondisi',p:'〜たら',r:'~ tara',m:'kalau / setelah ~',e:'時間があったら行く。',er:'Jikan ga attara iku.',et:'Kalau ada waktu, pergi.'},
+{lv:'N4',cat:'Kondisi',p:'〜なら',r:'~ nara',m:'kalau (tentang) ~',e:'日本ならでは。',er:'Nihon nara de wa.',et:'Khas Jepang.'},
+{lv:'N4',cat:'Kondisi',p:'〜と',r:'~ to',m:'kalau ~ (alami/pasti)',e:'春になると、桜が咲く。',er:'Haru ni naru to, sakura ga saku.',et:'Kalau musim semi, sakura mekar.'},
+{lv:'N4',cat:'Kontras',p:'〜のに',r:'~ noni',m:'padahal / meskipun',e:'高いのに買った。',er:'Takai noni katta.',et:'Padahal mahal, dibeli.'},
+{lv:'N4',cat:'Kontras',p:'〜ても',r:'~ te mo',m:'walaupun ~',e:'雨が降っても行く。',er:'Ame ga futte mo iku.',et:'Walaupun hujan, pergi.'},
+{lv:'N4',cat:'Tujuan',p:'〜ために',r:'~ tame ni',m:'untuk / demi ~',e:'健康のために運動する。',er:'Kenkou no tame ni undou suru.',et:'Olahraga demi kesehatan.'},
+{lv:'N4',cat:'Tujuan',p:'〜ように',r:'~ you ni',m:'supaya ~',e:'忘れないようにメモする。',er:'Wasurenai you ni memo suru.',et:'Catat supaya tidak lupa.'},
+{lv:'N4',cat:'Perubahan',p:'〜ようになる',r:'~ you ni naru',m:'menjadi bisa ~',e:'日本語が話せるようになった。',er:'Nihongo ga hanaseru you ni natta.',et:'Sudah bisa bicara Jepang.'},
+{lv:'N4',cat:'Perubahan',p:'〜ことにする / 〜ことになる',r:'~ koto ni suru / naru',m:'memutuskan / ditetapkan',e:'毎日走ることにした。',er:'Mainichi hashiru koto ni shita.',et:'Memutuskan lari tiap hari.'},
+{lv:'N4',cat:'Penekanan',p:'〜ばかり',r:'~ bakari',m:'hanya / baru saja',e:'遊んでばかりいる。',er:'Asonde bakari iru.',et:'Cuma bermain terus.'},
+{lv:'N4',cat:'Penekanan',p:'〜しか〜ない',r:'~ shika ~ nai',m:'hanya ~ (negatif)',e:'水しかない。',er:'Mizu shika nai.',et:'Cuma ada air.'},
+{lv:'N4',cat:'Pasif',p:'〜られる (受身)',r:'~ rareru (ukemi)',m:'bentuk pasif',e:'先生に褒められた。',er:'Sensei ni homerareta.',et:'Dipuji oleh guru.'},
+{lv:'N4',cat:'Kausatif',p:'〜させる (使役)',r:'~ saseru (shieki)',m:'menyuruh ~',e:'子供を買い物に行かせた。',er:'Kodomo o kaimono ni ikaseta.',et:'Menyuruh anak pergi belanja.'}
+];
+
+const PHRASES=[
+{cat:'Sapaan & Salam',items:[
+ ['おはようございます','ohayou gozaimasu','Selamat pagi'],
+ ['こんにちは','konnichiwa','Selamat siang'],
+ ['こんばんは','konbanwa','Selamat malam'],
+ ['おやすみなさい','oyasuminasai','Selamat tidur'],
+ ['はじめまして','hajimemashite','Senang berkenalan'],
+ ['よろしくおねがいします','yoroshiku onegaishimasu','Mohon bantuannya'],
+ ['ありがとうございます','arigatou gozaimasu','Terima kasih'],
+ ['すみません','sumimasen','Permisi / maaf'],
+ ['しつれいします','shitsurei shimasu','Permisi (keluar)'],
+ ['いってきます','ittekimasu','Saya pergi dulu'],
+ ['いってらっしゃい','itterasshai','Hati-hati di jalan'],
+ ['ただいま','tadaima','Saya pulang'],
+ ['おかえりなさい','okaerinasai','Selamat datang kembali'],
+ ['いただきます','itadakimasu','Selamat makan'],
+ ['ごちそうさまでした','gochisousama deshita','Terima kasih atas makanannya']
+]},
+{cat:'Di Restoran',items:[
+ ['メニューをください','menyuu o kudasai','Tolong menunya'],
+ ['おすすめはなんですか','osusume wa nan desu ka','Apa rekomendasinya?'],
+ ['これをください','kore o kudasai','Saya pesan ini'],
+ ['みずをください','mizu o kudasai','Tolong air'],
+ ['おいしいです','oishii desu','Enak'],
+ ['おかいけいおねがいします','okaikei onegaishimasu','Minta bonnya'],
+ ['からいですか','karai desu ka','Apakah pedas?'],
+ ['おなかがいっぱい','onaka ga ippai','Sudah kenyang']
+]},
+{cat:'Belanja',items:[
+ ['いくらですか','ikura desu ka','Berapa harganya?'],
+ ['たかいですね','takai desu ne','Mahal ya'],
+ ['これをください','kore o kudasai','Saya beli ini'],
+ ['カードでいいですか','kaado de ii desu ka','Bisa pakai kartu?'],
+ ['みせてください','misete kudasai','Tolong tunjukkan'],
+ ['ほかのいろはありますか','hoka no iro wa arimasu ka','Ada warna lain?'],
+ ['みっつください','mittsu kudasai','Tolong tiga'],
+ ['げんきんでおねがいします','genkin de onegaishimasu','Bayar tunai']
+]},
+{cat:'Arah & Lokasi',items:[
+ ['えきはどこですか','eki wa doko desu ka','Di mana stasiun?'],
+ ['トイレはどこですか','toire wa doko desu ka','Di mana toilet?'],
+ ['まっすぐ','massugu','Lurus'],
+ ['みぎ / ひだり','migi / hidari','Kanan / kiri'],
+ ['ちかいですか','chikai desu ka','Apakah dekat?'],
+ ['ここはどこですか','koko wa doko desu ka','Saya di mana ini?'],
+ ['みちにまよいました','michi ni mayoi mashita','Saya tersesat']
+]},
+{cat:'Minta Bantuan',items:[
+ ['わかりました','wakarimashita','Saya mengerti'],
+ ['わかりません','wakarimasen','Saya tidak mengerti'],
+ ['もういちどおねがいします','mou ichido onegaishimasu','Tolong ulangi'],
+ ['ゆっくりおねがいします','yukkuri onegaishimasu','Tolong pelan-pelan'],
+ ['にほんごがわかりません','nihongo ga wakarimasen','Saya tidak paham bahasa Jepang'],
+ ['えいごをはなせますか','eigo o hanasemasu ka','Bisa bahasa Inggris?'],
+ ['トイレにいきたいです','toire ni ikitai desu','Ingin ke toilet'],
+ ['だいじょうぶですか','daijoubu desu ka','Apakah tidak apa-apa?'],
+ ['だいじょうぶです','daijoubu desu','Saya tidak apa-apa'],
+ ['たすけて！','tasukete!','Tolong!']
+]},
+{cat:'Ungkapan Harian',items:[
+ ['がんばって','ganbatte','Semangat!'],
+ ['きをつけて','ki o tsukete','Hati-hati'],
+ ['おつかれさまです','otsukaresama desu','Terima kasih atas kerja kerasnya'],
+ ['おめでとう','omedetou','Selamat'],
+ ['かわいい','kawaii','Lucu'],
+ ['すごい','sugoi','Hebat'],
+ ['こまったな','komatta na','Aduh, gimana ya'],
+ ['しょうがない','shou ga nai','Mau gimana lagi'],
+ ['しかたない','shikata nai','Mau gimana lagi'],
+ ['なんとかなります','nantoka narimasu','Nanti pasti bisa']
+]}
+];
+
+const VOCAB=[
+{w:'会う',k:'あう',r:'au',m:'bertemu',c:'Kata Kerja',lv:'N5'},
+{w:'開く',k:'あく',r:'aku',m:'terbuka',c:'Kata Kerja',lv:'N5'},
+{w:'開ける',k:'あける',r:'akeru',m:'membuka',c:'Kata Kerja',lv:'N5'},
+{w:'上げる',k:'あげる',r:'ageru',m:'memberi',c:'Kata Kerja',lv:'N5'},
+{w:'遊ぶ',k:'あそぶ',r:'asobu',m:'bermain',c:'Kata Kerja',lv:'N5'},
+{w:'浴びる',k:'あびる',r:'abiru',m:'mandi (shower)',c:'Kata Kerja',lv:'N5'},
+{w:'洗う',k:'あらう',r:'arau',m:'mencuci',c:'Kata Kerja',lv:'N5'},
+{w:'ある',k:'ある',r:'aru',m:'ada (benda)',c:'Kata Kerja',lv:'N5'},
+{w:'歩く',k:'あるく',r:'aruku',m:'berjalan',c:'Kata Kerja',lv:'N5'},
+{w:'言う',k:'いう',r:'iu',m:'berkata',c:'Kata Kerja',lv:'N5'},
+{w:'行く',k:'いく',r:'iku',m:'pergi',c:'Kata Kerja',lv:'N5'},
+{w:'要る',k:'いる',r:'iru',m:'butuh',c:'Kata Kerja',lv:'N5'},
+{w:'いる',k:'いる',r:'iru',m:'ada (mahluk hidup)',c:'Kata Kerja',lv:'N5'},
+{w:'入れる',k:'いれる',r:'ireru',m:'memasukkan',c:'Kata Kerja',lv:'N5'},
+{w:'歌う',k:'うたう',r:'utau',m:'menyanyi',c:'Kata Kerja',lv:'N5'},
+{w:'生まれる',k:'うまれる',r:'umareru',m:'lahir',c:'Kata Kerja',lv:'N5'},
+{w:'売る',k:'うる',r:'uru',m:'menjual',c:'Kata Kerja',lv:'N5'},
+{w:'起きる',k:'おきる',r:'okiru',m:'bangun',c:'Kata Kerja',lv:'N5'},
+{w:'置く',k:'おく',r:'oku',m:'meletakkan',c:'Kata Kerja',lv:'N5'},
+{w:'教える',k:'おしえる',r:'oshieru',m:'mengajar',c:'Kata Kerja',lv:'N5'},
+{w:'押す',k:'おす',r:'osu',m:'mendorong',c:'Kata Kerja',lv:'N5'},
+{w:'覚える',k:'おぼえる',r:'oboeru',m:'mengingat',c:'Kata Kerja',lv:'N5'},
+{w:'泳ぐ',k:'およぐ',r:'oyogu',m:'berenang',c:'Kata Kerja',lv:'N5'},
+{w:'降りる',k:'おりる',r:'oriru',m:'turun',c:'Kata Kerja',lv:'N5'},
+{w:'終わる',k:'おわる',r:'owaru',m:'berakhir',c:'Kata Kerja',lv:'N5'},
+{w:'買う',k:'かう',r:'kau',m:'membeli',c:'Kata Kerja',lv:'N5'},
+{w:'返す',k:'かえす',r:'kaesu',m:'mengembalikan',c:'Kata Kerja',lv:'N5'},
+{w:'帰る',k:'かえる',r:'kaeru',m:'pulang',c:'Kata Kerja',lv:'N5'},
+{w:'かかる',k:'かかる',r:'kakaru',m:'butuh (waktu/uang)',c:'Kata Kerja',lv:'N5'},
+{w:'書く',k:'かく',r:'kaku',m:'menulis',c:'Kata Kerja',lv:'N5'},
+{w:'貸す',k:'かす',r:'kasu',m:'meminjamkan',c:'Kata Kerja',lv:'N5'},
+{w:'被る',k:'かぶる',r:'kaburu',m:'memakai (topi)',c:'Kata Kerja',lv:'N5'},
+{w:'借りる',k:'かりる',r:'kariru',m:'meminjam',c:'Kata Kerja',lv:'N5'},
+{w:'消える',k:'きえる',r:'kieru',m:'hilang/padam',c:'Kata Kerja',lv:'N5'},
+{w:'聞く',k:'きく',r:'kiku',m:'mendengar/bertanya',c:'Kata Kerja',lv:'N5'},
+{w:'切る',k:'きる',r:'kiru',m:'memotong',c:'Kata Kerja',lv:'N5'},
+{w:'着る',k:'きる',r:'kiru',m:'memakai (baju)',c:'Kata Kerja',lv:'N5'},
+{w:'来る',k:'くる',r:'kuru',m:'datang',c:'Kata Kerja',lv:'N5'},
+{w:'消す',k:'けす',r:'kesu',m:'menghapus',c:'Kata Kerja',lv:'N5'},
+{w:'答える',k:'こたえる',r:'kotaeru',m:'menjawab',c:'Kata Kerja',lv:'N5'},
+{w:'困る',k:'こまる',r:'komaru',m:'kesulitan',c:'Kata Kerja',lv:'N5'},
+{w:'咲く',k:'さく',r:'saku',m:'berbunga',c:'Kata Kerja',lv:'N5'},
+{w:'差す',k:'さす',r:'sasu',m:'memakai (payung)',c:'Kata Kerja',lv:'N5'},
+{w:'死ぬ',k:'しぬ',r:'shinu',m:'mati',c:'Kata Kerja',lv:'N5'},
+{w:'知る',k:'しる',r:'shiru',m:'tahu',c:'Kata Kerja',lv:'N5'},
+{w:'吸う',k:'すう',r:'suu',m:'mengisap',c:'Kata Kerja',lv:'N5'},
+{w:'住む',k:'すむ',r:'sumu',m:'tinggal',c:'Kata Kerja',lv:'N5'},
+{w:'する',k:'する',r:'suru',m:'melakukan',c:'Kata Kerja',lv:'N5'},
+{w:'座る',k:'すわる',r:'suwaru',m:'duduk',c:'Kata Kerja',lv:'N5'},
+{w:'出す',k:'だす',r:'dasu',m:'mengeluarkan',c:'Kata Kerja',lv:'N5'},
+{w:'立つ',k:'たつ',r:'tatsu',m:'berdiri',c:'Kata Kerja',lv:'N5'},
+{w:'頼む',k:'たのむ',r:'tanomu',m:'meminta',c:'Kata Kerja',lv:'N5'},
+{w:'食べる',k:'たべる',r:'taberu',m:'makan',c:'Kata Kerja',lv:'N5'},
+{w:'違う',k:'ちがう',r:'chigau',m:'berbeda',c:'Kata Kerja',lv:'N5'},
+{w:'使う',k:'つかう',r:'tsukau',m:'menggunakan',c:'Kata Kerja',lv:'N5'},
+{w:'疲れる',k:'つかれる',r:'tsukareru',m:'lelah',c:'Kata Kerja',lv:'N5'},
+{w:'着く',k:'つく',r:'tsuku',m:'tiba',c:'Kata Kerja',lv:'N5'},
+{w:'作る',k:'つくる',r:'tsukuru',m:'membuat',c:'Kata Kerja',lv:'N5'},
+{w:'点ける',k:'つける',r:'tsukeru',m:'menyalakan',c:'Kata Kerja',lv:'N5'},
+{w:'勤める',k:'つとめる',r:'tsutomeru',m:'bekerja di',c:'Kata Kerja',lv:'N5'},
+{w:'出かける',k:'でかける',r:'dekakeru',m:'pergi keluar',c:'Kata Kerja',lv:'N5'},
+{w:'できる',k:'できる',r:'dekiru',m:'bisa',c:'Kata Kerja',lv:'N5'},
+{w:'出る',k:'でる',r:'deru',m:'keluar',c:'Kata Kerja',lv:'N5'},
+{w:'飛ぶ',k:'とぶ',r:'tobu',m:'terbang',c:'Kata Kerja',lv:'N5'},
+{w:'止まる',k:'とまる',r:'tomaru',m:'berhenti',c:'Kata Kerja',lv:'N5'},
+{w:'取る',k:'とる',r:'toru',m:'mengambil',c:'Kata Kerja',lv:'N5'},
+{w:'撮る',k:'とる',r:'toru',m:'memotret',c:'Kata Kerja',lv:'N5'},
+{w:'鳴く',k:'なく',r:'naku',m:'berbunyi',c:'Kata Kerja',lv:'N5'},
+{w:'泣く',k:'なく',r:'naku',m:'menangis',c:'Kata Kerja',lv:'N5'},
+{w:'無くす',k:'なくす',r:'nakusu',m:'kehilangan',c:'Kata Kerja',lv:'N5'},
+{w:'習う',k:'ならう',r:'narau',m:'belajar',c:'Kata Kerja',lv:'N5'},
+{w:'並ぶ',k:'ならぶ',r:'narabu',m:'berbaris',c:'Kata Kerja',lv:'N5'},
+{w:'並べる',k:'ならべる',r:'naraberu',m:'menyusun',c:'Kata Kerja',lv:'N5'},
+{w:'成る',k:'なる',r:'naru',m:'menjadi',c:'Kata Kerja',lv:'N5'},
+{w:'脱ぐ',k:'ぬぐ',r:'nugu',m:'melepas',c:'Kata Kerja',lv:'N5'},
+{w:'寝る',k:'ねる',r:'neru',m:'tidur',c:'Kata Kerja',lv:'N5'},
+{w:'登る',k:'のぼる',r:'noboru',m:'mendaki',c:'Kata Kerja',lv:'N5'},
+{w:'飲む',k:'のむ',r:'nomu',m:'minum',c:'Kata Kerja',lv:'N5'},
+{w:'乗る',k:'のる',r:'noru',m:'naik',c:'Kata Kerja',lv:'N5'},
+{w:'入る',k:'はいる',r:'hairu',m:'masuk',c:'Kata Kerja',lv:'N5'},
+{w:'履く',k:'はく',r:'haku',m:'memakai (sepatu)',c:'Kata Kerja',lv:'N5'},
+{w:'始まる',k:'はじまる',r:'hajimaru',m:'dimulai',c:'Kata Kerja',lv:'N5'},
+{w:'働く',k:'はたらく',r:'hataraku',m:'bekerja',c:'Kata Kerja',lv:'N5'},
+{w:'話す',k:'はなす',r:'hanasu',m:'berbicara',c:'Kata Kerja',lv:'N5'},
+{w:'貼る',k:'はる',r:'haru',m:'menempel',c:'Kata Kerja',lv:'N5'},
+{w:'晴れる',k:'はれる',r:'hareru',m:'cerah',c:'Kata Kerja',lv:'N5'},
+{w:'引く',k:'ひく',r:'hiku',m:'menarik',c:'Kata Kerja',lv:'N5'},
+{w:'弾く',k:'ひく',r:'hiku',m:'memainkan (alat musik)',c:'Kata Kerja',lv:'N5'},
+{w:'降る',k:'ふる',r:'furu',m:'turun (hujan)',c:'Kata Kerja',lv:'N5'},
+{w:'吹く',k:'ふく',r:'fuku',m:'bertiup',c:'Kata Kerja',lv:'N5'},
+{w:'曲がる',k:'まがる',r:'magaru',m:'berbelok',c:'Kata Kerja',lv:'N5'},
+{w:'待つ',k:'まつ',r:'matsu',m:'menunggu',c:'Kata Kerja',lv:'N5'},
+{w:'磨く',k:'みがく',r:'migaku',m:'menggosok',c:'Kata Kerja',lv:'N5'},
+{w:'見せる',k:'みせる',r:'miseru',m:'memperlihatkan',c:'Kata Kerja',lv:'N5'},
+{w:'見る',k:'みる',r:'miru',m:'melihat',c:'Kata Kerja',lv:'N5'},
+{w:'持つ',k:'もつ',r:'motsu',m:'membawa',c:'Kata Kerja',lv:'N5'},
+{w:'休む',k:'やすむ',r:'yasumu',m:'istirahat',c:'Kata Kerja',lv:'N5'},
+{w:'やる',k:'やる',r:'yaru',m:'melakukan',c:'Kata Kerja',lv:'N5'},
+{w:'呼ぶ',k:'よぶ',r:'yobu',m:'memanggil',c:'Kata Kerja',lv:'N5'},
+{w:'読む',k:'よむ',r:'yomu',m:'membaca',c:'Kata Kerja',lv:'N5'},
+{w:'分かる',k:'わかる',r:'wakaru',m:'mengerti',c:'Kata Kerja',lv:'N5'},
+{w:'忘れる',k:'わすれる',r:'wasureru',m:'lupa',c:'Kata Kerja',lv:'N5'},
+{w:'集まる',k:'あつまる',r:'atsumaru',m:'berkumpul',c:'Kata Kerja',lv:'N4'},
+{w:'集める',k:'あつめる',r:'atsumeru',m:'mengumpulkan',c:'Kata Kerja',lv:'N4'},
+{w:'謝る',k:'あやまる',r:'ayamaru',m:'meminta maaf',c:'Kata Kerja',lv:'N4'},
+{w:'急ぐ',k:'いそぐ',r:'isogu',m:'bergegas',c:'Kata Kerja',lv:'N4'},
+{w:'頂く',k:'いただく',r:'itadaku',m:'menerima (sopan)',c:'Kata Kerja',lv:'N4'},
+{w:'祈る',k:'いのる',r:'inoru',m:'berdoa',c:'Kata Kerja',lv:'N4'},
+{w:'動く',k:'うごく',r:'ugoku',m:'bergerak',c:'Kata Kerja',lv:'N4'},
+{w:'打つ',k:'うつ',r:'utsu',m:'memukul',c:'Kata Kerja',lv:'N4'},
+{w:'移る',k:'うつる',r:'utsuru',m:'berpindah',c:'Kata Kerja',lv:'N4'},
+{w:'選ぶ',k:'えらぶ',r:'erabu',m:'memilih',c:'Kata Kerja',lv:'N4'},
+{w:'起こす',k:'おこす',r:'okosu',m:'membangunkan',c:'Kata Kerja',lv:'N4'},
+{w:'行う',k:'おこなう',r:'okonau',m:'melaksanakan',c:'Kata Kerja',lv:'N4'},
+{w:'怒る',k:'おこる',r:'okoru',m:'marah',c:'Kata Kerja',lv:'N4'},
+{w:'落ちる',k:'おちる',r:'ochiru',m:'jatuh',c:'Kata Kerja',lv:'N4'},
+{w:'踊る',k:'おどる',r:'odoru',m:'menari',c:'Kata Kerja',lv:'N4'},
+{w:'驚く',k:'おどろく',r:'odoroku',m:'terkejut',c:'Kata Kerja',lv:'N4'},
+{w:'思い出す',k:'おもいだす',r:'omoidasu',m:'mengingat kembali',c:'Kata Kerja',lv:'N4'},
+{w:'思う',k:'おもう',r:'omou',m:'berpikir',c:'Kata Kerja',lv:'N4'},
+{w:'折る',k:'おる',r:'oru',m:'melipat',c:'Kata Kerja',lv:'N4'},
+{w:'飾る',k:'かざる',r:'kazaru',m:'menghias',c:'Kata Kerja',lv:'N4'},
+{w:'片付ける',k:'かたづける',r:'katadzukeru',m:'merapikan',c:'Kata Kerja',lv:'N4'},
+{w:'勝つ',k:'かつ',r:'katsu',m:'menang',c:'Kata Kerja',lv:'N4'},
+{w:'通う',k:'かよう',r:'kayou',m:'bolak-balik',c:'Kata Kerja',lv:'N4'},
+{w:'乾く',k:'かわく',r:'kawaku',m:'kering',c:'Kata Kerja',lv:'N4'},
+{w:'変わる',k:'かわる',r:'kawaru',m:'berubah',c:'Kata Kerja',lv:'N4'},
+{w:'考える',k:'かんがえる',r:'kangaeru',m:'memikirkan',c:'Kata Kerja',lv:'N4'},
+{w:'頑張る',k:'がんばる',r:'ganbaru',m:'berusaha',c:'Kata Kerja',lv:'N4'},
+{w:'決まる',k:'きまる',r:'kimaru',m:'diputuskan',c:'Kata Kerja',lv:'N4'},
+{w:'決める',k:'きめる',r:'kimeru',m:'memutuskan',c:'Kata Kerja',lv:'N4'},
+{w:'比べる',k:'くらべる',r:'kuraberu',m:'membandingkan',c:'Kata Kerja',lv:'N4'},
+{w:'壊す',k:'こわす',r:'kowasu',m:'merusak',c:'Kata Kerja',lv:'N4'},
+{w:'壊れる',k:'こわれる',r:'kowareru',m:'rusak',c:'Kata Kerja',lv:'N4'},
+{w:'探す',k:'さがす',r:'sagasu',m:'mencari',c:'Kata Kerja',lv:'N4'},
+{w:'下がる',k:'さがる',r:'sagaru',m:'turun',c:'Kata Kerja',lv:'N4'},
+{w:'下げる',k:'さげる',r:'sageru',m:'menurunkan',c:'Kata Kerja',lv:'N4'},
+{w:'誘う',k:'さそう',r:'sasou',m:'mengajak',c:'Kata Kerja',lv:'N4'},
+{w:'騒ぐ',k:'さわぐ',r:'sawagu',m:'ribut',c:'Kata Kerja',lv:'N4'},
+{w:'触る',k:'さわる',r:'sawaru',m:'menyentuh',c:'Kata Kerja',lv:'N4'},
+{w:'叱る',k:'しかる',r:'shikaru',m:'memarahi',c:'Kata Kerja',lv:'N4'},
+{w:'調べる',k:'しらべる',r:'shiraberu',m:'memeriksa',c:'Kata Kerja',lv:'N4'},
+{w:'知らせる',k:'しらせる',r:'shiraseru',m:'memberitahu',c:'Kata Kerja',lv:'N4'},
+{w:'信じる',k:'しんじる',r:'shinjiru',m:'percaya',c:'Kata Kerja',lv:'N4'},
+{w:'過ごす',k:'すごす',r:'sugosu',m:'melewatkan',c:'Kata Kerja',lv:'N4'},
+{w:'進む',k:'すすむ',r:'susumu',m:'maju',c:'Kata Kerja',lv:'N4'},
+{w:'捨てる',k:'すてる',r:'suteru',m:'membuang',c:'Kata Kerja',lv:'N4'},
+{w:'育てる',k:'そだてる',r:'sodateru',m:'membesarkan',c:'Kata Kerja',lv:'N4'},
+{w:'倒れる',k:'たおれる',r:'taoreru',m:'roboh',c:'Kata Kerja',lv:'N4'},
+{w:'足す',k:'たす',r:'tasu',m:'menambah',c:'Kata Kerja',lv:'N4'},
+{w:'訪ねる',k:'たずねる',r:'tazuneru',m:'mengunjungi',c:'Kata Kerja',lv:'N4'},
+{w:'楽しむ',k:'たのしむ',r:'tanoshimu',m:'menikmati',c:'Kata Kerja',lv:'N4'},
+{w:'足りる',k:'たりる',r:'tariru',m:'cukup',c:'Kata Kerja',lv:'N4'},
+{w:'捕まえる',k:'つかまえる',r:'tsukamaeru',m:'menangkap',c:'Kata Kerja',lv:'N4'},
+{w:'続く',k:'つづく',r:'tsudzuku',m:'berlanjut',c:'Kata Kerja',lv:'N4'},
+{w:'続ける',k:'つづける',r:'tsudzukeru',m:'melanjutkan',c:'Kata Kerja',lv:'N4'},
+{w:'包む',k:'つつむ',r:'tsutsumu',m:'membungkus',c:'Kata Kerja',lv:'N4'},
+{w:'連れる',k:'つれる',r:'tsureru',m:'mengajak',c:'Kata Kerja',lv:'N4'},
+{w:'手伝う',k:'てつだう',r:'tetsudau',m:'membantu',c:'Kata Kerja',lv:'N4'},
+{w:'通る',k:'とおる',r:'tooru',m:'melewati',c:'Kata Kerja',lv:'N4'},
+{w:'届く',k:'とどく',r:'todoku',m:'sampai',c:'Kata Kerja',lv:'N4'},
+{w:'届ける',k:'とどける',r:'todokeru',m:'mengantarkan',c:'Kata Kerja',lv:'N4'},
+{w:'泊まる',k:'とまる',r:'tomaru',m:'menginap',c:'Kata Kerja',lv:'N4'},
+{w:'止める',k:'とめる',r:'tomeru',m:'menghentikan',c:'Kata Kerja',lv:'N4'},
+{w:'取り替える',k:'とりかえる',r:'torikaeru',m:'menukar',c:'Kata Kerja',lv:'N4'},
+{w:'直す',k:'なおす',r:'naosu',m:'memperbaiki',c:'Kata Kerja',lv:'N4'},
+{w:'直る',k:'なおる',r:'naoru',m:'membaik',c:'Kata Kerja',lv:'N4'},
+{w:'治る',k:'なおる',r:'naoru',m:'sembuh',c:'Kata Kerja',lv:'N4'},
+{w:'投げる',k:'なげる',r:'nageru',m:'melempar',c:'Kata Kerja',lv:'N4'},
+{w:'無くなる',k:'なくなる',r:'nakunaru',m:'hilang',c:'Kata Kerja',lv:'N4'},
+{w:'亡くなる',k:'なくなる',r:'nakunaru',m:'meninggal',c:'Kata Kerja',lv:'N4'},
+{w:'慣れる',k:'なれる',r:'nareru',m:'terbiasa',c:'Kata Kerja',lv:'N4'},
+{w:'似る',k:'にる',r:'niru',m:'mirip',c:'Kata Kerja',lv:'N4'},
+{w:'盗む',k:'ぬすむ',r:'nusumu',m:'mencuri',c:'Kata Kerja',lv:'N4'},
+{w:'塗る',k:'ぬる',r:'nuru',m:'mengoleskan',c:'Kata Kerja',lv:'N4'},
+{w:'濡れる',k:'ぬれる',r:'nureru',m:'basah',c:'Kata Kerja',lv:'N4'},
+{w:'残る',k:'のこる',r:'nokoru',m:'tersisa',c:'Kata Kerja',lv:'N4'},
+{w:'運ぶ',k:'はこぶ',r:'hakobu',m:'mengangkut',c:'Kata Kerja',lv:'N4'},
+{w:'始める',k:'はじめる',r:'hajimeru',m:'memulai',c:'Kata Kerja',lv:'N4'},
+{w:'走る',k:'はしる',r:'hashiru',m:'berlari',c:'Kata Kerja',lv:'N4'},
+{w:'外す',k:'はずす',r:'hazusu',m:'melepas',c:'Kata Kerja',lv:'N4'},
+{w:'払う',k:'はらう',r:'harau',m:'membayar',c:'Kata Kerja',lv:'N4'},
+{w:'冷える',k:'ひえる',r:'hieru',m:'menjadi dingin',c:'Kata Kerja',lv:'N4'},
+{w:'光る',k:'ひかる',r:'hikaru',m:'berkilau',c:'Kata Kerja',lv:'N4'},
+{w:'引っ越す',k:'ひっこす',r:'hikkosu',m:'pindah rumah',c:'Kata Kerja',lv:'N4'},
+{w:'開く',k:'ひらく',r:'hiraku',m:'membuka',c:'Kata Kerja',lv:'N4'},
+{w:'拾う',k:'ひろう',r:'hirou',m:'memungut',c:'Kata Kerja',lv:'N4'},
+{w:'増える',k:'ふえる',r:'fueru',m:'bertambah',c:'Kata Kerja',lv:'N4'},
+{w:'太る',k:'ふとる',r:'futoru',m:'gemuk',c:'Kata Kerja',lv:'N4'},
+{w:'踏む',k:'ふむ',r:'fumu',m:'menginjak',c:'Kata Kerja',lv:'N4'},
+{w:'放す',k:'はなす',r:'hanasu',m:'melepaskan',c:'Kata Kerja',lv:'N4'},
+{w:'負ける',k:'まける',r:'makeru',m:'kalah',c:'Kata Kerja',lv:'N4'},
+{w:'間違える',k:'まちがえる',r:'machigaeru',m:'salah',c:'Kata Kerja',lv:'N4'},
+{w:'間に合う',k:'まにあう',r:'maniau',m:'tepat waktu',c:'Kata Kerja',lv:'N4'},
+{w:'回る',k:'まわる',r:'mawaru',m:'berputar',c:'Kata Kerja',lv:'N4'},
+{w:'見える',k:'みえる',r:'mieru',m:'terlihat',c:'Kata Kerja',lv:'N4'},
+{w:'見つかる',k:'みつかる',r:'mitsukaru',m:'ditemukan',c:'Kata Kerja',lv:'N4'},
+{w:'見つける',k:'みつける',r:'mitsukeru',m:'menemukan',c:'Kata Kerja',lv:'N4'},
+{w:'迎える',k:'むかえる',r:'mukaeru',m:'menjemput',c:'Kata Kerja',lv:'N4'},
+{w:'戻る',k:'もどる',r:'modoru',m:'kembali',c:'Kata Kerja',lv:'N4'},
+{w:'貰う',k:'もらう',r:'morau',m:'menerima',c:'Kata Kerja',lv:'N4'},
+{w:'焼く',k:'やく',r:'yaku',m:'memanggang',c:'Kata Kerja',lv:'N4'},
+{w:'役に立つ',k:'やくにたつ',r:'yaku ni tatsu',m:'berguna',c:'Kata Kerja',lv:'N4'},
+{w:'焼ける',k:'やける',r:'yakeru',m:'terbakar',c:'Kata Kerja',lv:'N4'},
+{w:'止む',k:'やむ',r:'yamu',m:'berhenti (hujan)',c:'Kata Kerja',lv:'N4'},
+{w:'辞める',k:'やめる',r:'yameru',m:'berhenti kerja',c:'Kata Kerja',lv:'N4'},
+{w:'揺れる',k:'ゆれる',r:'yureru',m:'bergoyang',c:'Kata Kerja',lv:'N4'},
+{w:'汚れる',k:'よごれる',r:'yogoreru',m:'kotor',c:'Kata Kerja',lv:'N4'},
+{w:'寄る',k:'よる',r:'yoru',m:'mampir',c:'Kata Kerja',lv:'N4'},
+{w:'喜ぶ',k:'よろこぶ',r:'yorokobu',m:'senang',c:'Kata Kerja',lv:'N4'},
+{w:'沸く',k:'わく',r:'waku',m:'mendidih',c:'Kata Kerja',lv:'N4'},
+{w:'別れる',k:'わかれる',r:'wakareru',m:'berpisah',c:'Kata Kerja',lv:'N4'},
+{w:'笑う',k:'わらう',r:'warau',m:'tertawa',c:'Kata Kerja',lv:'N4'},
+{w:'割れる',k:'われる',r:'wareru',m:'pecah',c:'Kata Kerja',lv:'N4'},
+{w:'家族',k:'かぞく',r:'kazoku',m:'keluarga',c:'Keluarga',lv:'N5'},
+{w:'お父さん',k:'おとうさん',r:'otousan',m:'ayah',c:'Keluarga',lv:'N5'},
+{w:'父',k:'ちち',r:'chichi',m:'ayah (saya)',c:'Keluarga',lv:'N5'},
+{w:'お母さん',k:'おかあさん',r:'okaasan',m:'ibu',c:'Keluarga',lv:'N5'},
+{w:'母',k:'はは',r:'haha',m:'ibu (saya)',c:'Keluarga',lv:'N5'},
+{w:'お兄さん',k:'おにいさん',r:'oniisan',m:'kakak laki-laki',c:'Keluarga',lv:'N5'},
+{w:'お姉さん',k:'おねえさん',r:'oneesan',m:'kakak perempuan',c:'Keluarga',lv:'N5'},
+{w:'弟',k:'おとうと',r:'otouto',m:'adik laki-laki',c:'Keluarga',lv:'N5'},
+{w:'妹',k:'いもうと',r:'imouto',m:'adik perempuan',c:'Keluarga',lv:'N5'},
+{w:'子供',k:'こども',r:'kodomo',m:'anak',c:'Keluarga',lv:'N5'},
+{w:'両親',k:'りょうしん',r:'ryoushin',m:'orang tua',c:'Keluarga',lv:'N4'},
+{w:'兄弟',k:'きょうだい',r:'kyoudai',m:'saudara',c:'Keluarga',lv:'N4'},
+{w:'夫',k:'おっと',r:'otto',m:'suami',c:'Keluarga',lv:'N4'},
+{w:'妻',k:'つま',r:'tsuma',m:'istri',c:'Keluarga',lv:'N4'},
+{w:'祖父',k:'そふ',r:'sofu',m:'kakek',c:'Keluarga',lv:'N4'},
+{w:'祖母',k:'そぼ',r:'sobo',m:'nenek',c:'Keluarga',lv:'N4'},
+{w:'親',k:'おや',r:'oya',m:'orang tua',c:'Keluarga',lv:'N4'},
+{w:'今',k:'いま',r:'ima',m:'sekarang',c:'Waktu',lv:'N5'},
+{w:'今日',k:'きょう',r:'kyou',m:'hari ini',c:'Waktu',lv:'N5'},
+{w:'昨日',k:'きのう',r:'kinou',m:'kemarin',c:'Waktu',lv:'N5'},
+{w:'明日',k:'あした',r:'ashita',m:'besok',c:'Waktu',lv:'N5'},
+{w:'明後日',k:'あさって',r:'asatte',m:'lusa',c:'Waktu',lv:'N5'},
+{w:'一昨日',k:'おととい',r:'ototoi',m:'kemarin lusa',c:'Waktu',lv:'N4'},
+{w:'今朝',k:'けさ',r:'kesa',m:'tadi pagi',c:'Waktu',lv:'N5'},
+{w:'今晩',k:'こんばん',r:'konban',m:'malam ini',c:'Waktu',lv:'N5'},
+{w:'今週',k:'こんしゅう',r:'konshuu',m:'minggu ini',c:'Waktu',lv:'N5'},
+{w:'今月',k:'こんげつ',r:'kongetsu',m:'bulan ini',c:'Waktu',lv:'N5'},
+{w:'今年',k:'ことし',r:'kotoshi',m:'tahun ini',c:'Waktu',lv:'N5'},
+{w:'来週',k:'らいしゅう',r:'raishuu',m:'minggu depan',c:'Waktu',lv:'N5'},
+{w:'来月',k:'らいげつ',r:'raigetsu',m:'bulan depan',c:'Waktu',lv:'N5'},
+{w:'来年',k:'らいねん',r:'rainen',m:'tahun depan',c:'Waktu',lv:'N5'},
+{w:'先週',k:'せんしゅう',r:'senshuu',m:'minggu lalu',c:'Waktu',lv:'N5'},
+{w:'先月',k:'せんげつ',r:'sengetsu',m:'bulan lalu',c:'Waktu',lv:'N5'},
+{w:'去年',k:'きょねん',r:'kyonen',m:'tahun lalu',c:'Waktu',lv:'N5'},
+{w:'毎日',k:'まいにち',r:'mainichi',m:'setiap hari',c:'Waktu',lv:'N5'},
+{w:'毎週',k:'まいしゅう',r:'maishuu',m:'setiap minggu',c:'Waktu',lv:'N5'},
+{w:'毎月',k:'まいつき',r:'maitsuki',m:'setiap bulan',c:'Waktu',lv:'N5'},
+{w:'毎年',k:'まいとし',r:'maitoshi',m:'setiap tahun',c:'Waktu',lv:'N5'},
+{w:'朝',k:'あさ',r:'asa',m:'pagi',c:'Waktu',lv:'N5'},
+{w:'昼',k:'ひる',r:'hiru',m:'siang',c:'Waktu',lv:'N5'},
+{w:'晩',k:'ばん',r:'ban',m:'malam (sore)',c:'Waktu',lv:'N5'},
+{w:'夜',k:'よる',r:'yoru',m:'malam (tengah)',c:'Waktu',lv:'N5'},
+{w:'夕方',k:'ゆうがた',r:'yuugata',m:'sore',c:'Waktu',lv:'N5'},
+{w:'午前',k:'ごぜん',r:'gozen',m:'AM',c:'Waktu',lv:'N5'},
+{w:'午後',k:'ごご',r:'gogo',m:'PM',c:'Waktu',lv:'N5'},
+{w:'時間',k:'じかん',r:'jikan',m:'waktu',c:'Waktu',lv:'N5'},
+{w:'分',k:'ふん',r:'fun',m:'menit',c:'Waktu',lv:'N5'},
+{w:'半',k:'はん',r:'han',m:'setengah',c:'Waktu',lv:'N5'},
+{w:'家',k:'いえ',r:'ie',m:'rumah',c:'Tempat',lv:'N5'},
+{w:'学校',k:'がっこう',r:'gakkou',m:'sekolah',c:'Tempat',lv:'N5'},
+{w:'大学',k:'だいがく',r:'daigaku',m:'universitas',c:'Tempat',lv:'N5'},
+{w:'会社',k:'かいしゃ',r:'kaisha',m:'perusahaan',c:'Tempat',lv:'N5'},
+{w:'病院',k:'びょういん',r:'byouin',m:'rumah sakit',c:'Tempat',lv:'N5'},
+{w:'銀行',k:'ぎんこう',r:'ginkou',m:'bank',c:'Tempat',lv:'N5'},
+{w:'郵便局',k:'ゆうびんきょく',r:'yuubinkyoku',m:'kantor pos',c:'Tempat',lv:'N5'},
+{w:'図書館',k:'としょかん',r:'toshokan',m:'perpustakaan',c:'Tempat',lv:'N5'},
+{w:'駅',k:'えき',r:'eki',m:'stasiun',c:'Tempat',lv:'N5'},
+{w:'空港',k:'くうこう',r:'kuukou',m:'bandara',c:'Tempat',lv:'N4'},
+{w:'港',k:'みなと',r:'minato',m:'pelabuhan',c:'Tempat',lv:'N4'},
+{w:'店',k:'みせ',r:'mise',m:'toko',c:'Tempat',lv:'N5'},
+{w:'食堂',k:'しょくどう',r:'shokudou',m:'kantin',c:'Tempat',lv:'N5'},
+{w:'喫茶店',k:'きっさてん',r:'kissaten',m:'kafe',c:'Tempat',lv:'N5'},
+{w:'レストラン',k:'れすとらん',r:'resutoran',m:'restoran',c:'Tempat',lv:'N5'},
+{w:'デパート',k:'でぱーと',r:'depaato',m:'department store',c:'Tempat',lv:'N5'},
+{w:'スーパー',k:'すーぱー',r:'suupaa',m:'supermarket',c:'Tempat',lv:'N5'},
+{w:'本屋',k:'ほんや',r:'hon ya',m:'toko buku',c:'Tempat',lv:'N5'},
+{w:'映画館',k:'えいがかん',r:'eigakan',m:'bioskop',c:'Tempat',lv:'N4'},
+{w:'公園',k:'こうえん',r:'kouen',m:'taman',c:'Tempat',lv:'N5'},
+{w:'部屋',k:'へや',r:'heya',m:'kamar',c:'Tempat',lv:'N5'},
+{w:'台所',k:'だいどころ',r:'daidokoro',m:'dapur',c:'Tempat',lv:'N5'},
+{w:'風呂',k:'ふろ',r:'furo',m:'kamar mandi',c:'Tempat',lv:'N5'},
+{w:'トイレ',k:'といれ',r:'toire',m:'toilet',c:'Tempat',lv:'N5'},
+{w:'入口',k:'いりぐち',r:'iriguchi',m:'pintu masuk',c:'Tempat',lv:'N5'},
+{w:'出口',k:'でぐち',r:'deguchi',m:'pintu keluar',c:'Tempat',lv:'N5'},
+{w:'交番',k:'こうばん',r:'kouban',m:'pos polisi',c:'Tempat',lv:'N4'},
+{w:'神社',k:'じんじゃ',r:'jinja',m:'kuil Shinto',c:'Tempat',lv:'N4'},
+{w:'お寺',k:'おてら',r:'otera',m:'kuil Buddha',c:'Tempat',lv:'N4'},
+{w:'教会',k:'きょうかい',r:'kyoukai',m:'gereja',c:'Tempat',lv:'N4'},
+{w:'城',k:'しろ',r:'shiro',m:'kastil',c:'Tempat',lv:'N4'},
+{w:'動物園',k:'どうぶつえん',r:'doubutsuen',m:'kebun binatang',c:'Tempat',lv:'N4'},
+{w:'水族館',k:'すいぞくかん',r:'suizokukan',m:'akuarium',c:'Tempat',lv:'N4'},
+{w:'美術館',k:'びじゅつかん',r:'bijutsukan',m:'museum seni',c:'Tempat',lv:'N4'},
+{w:'博物館',k:'はくぶつかん',r:'hakubutsukan',m:'museum',c:'Tempat',lv:'N4'},
+{w:'薬局',k:'やっきょく',r:'yakkyoku',m:'apotek',c:'Tempat',lv:'N4'},
+{w:'市役所',k:'しやくしょ',r:'shiyakusho',m:'kantor kota',c:'Tempat',lv:'N4'},
+{w:'ご飯',k:'ごはん',r:'gohan',m:'nasi',c:'Makanan',lv:'N5'},
+{w:'パン',k:'ぱん',r:'pan',m:'roti',c:'Makanan',lv:'N5'},
+{w:'肉',k:'にく',r:'niku',m:'daging',c:'Makanan',lv:'N5'},
+{w:'魚',k:'さかな',r:'sakana',m:'ikan',c:'Makanan',lv:'N5'},
+{w:'野菜',k:'やさい',r:'yasai',m:'sayur',c:'Makanan',lv:'N5'},
+{w:'果物',k:'くだもの',r:'kudamono',m:'buah',c:'Makanan',lv:'N5'},
+{w:'卵',k:'たまご',r:'tamago',m:'telur',c:'Makanan',lv:'N5'},
+{w:'牛乳',k:'ぎゅうにゅう',r:'gyuunyuu',m:'susu',c:'Makanan',lv:'N5'},
+{w:'お茶',k:'おちゃ',r:'ocha',m:'teh',c:'Makanan',lv:'N5'},
+{w:'コーヒー',k:'こーひー',r:'koohii',m:'kopi',c:'Makanan',lv:'N5'},
+{w:'水',k:'みず',r:'mizu',m:'air',c:'Makanan',lv:'N5'},
+{w:'お酒',k:'おさけ',r:'osake',m:'minuman keras',c:'Makanan',lv:'N5'},
+{w:'砂糖',k:'さとう',r:'satou',m:'gula',c:'Makanan',lv:'N5'},
+{w:'塩',k:'しお',r:'shio',m:'garam',c:'Makanan',lv:'N5'},
+{w:'醤油',k:'しょうゆ',r:'shouyu',m:'kecap asin',c:'Makanan',lv:'N4'},
+{w:'朝ご飯',k:'あさごはん',r:'asagohan',m:'sarapan',c:'Makanan',lv:'N5'},
+{w:'昼ご飯',k:'ひるごはん',r:'hirugohan',m:'makan siang',c:'Makanan',lv:'N5'},
+{w:'晩ご飯',k:'ばんごはん',r:'bangohan',m:'makan malam',c:'Makanan',lv:'N5'},
+{w:'本',k:'ほん',r:'hon',m:'buku',c:'Benda',lv:'N5'},
+{w:'辞書',k:'じしょ',r:'jisho',m:'kamus',c:'Benda',lv:'N5'},
+{w:'ノート',k:'のーと',r:'nooto',m:'buku catatan',c:'Benda',lv:'N5'},
+{w:'鉛筆',k:'えんぴつ',r:'enpitsu',m:'pensil',c:'Benda',lv:'N5'},
+{w:'ペン',k:'ぺん',r:'pen',m:'pena',c:'Benda',lv:'N5'},
+{w:'消しゴム',k:'けしごむ',r:'keshigomu',m:'penghapus',c:'Benda',lv:'N5'},
+{w:'紙',k:'かみ',r:'kami',m:'kertas',c:'Benda',lv:'N5'},
+{w:'机',k:'つくえ',r:'tsukue',m:'meja',c:'Benda',lv:'N5'},
+{w:'椅子',k:'いす',r:'isu',m:'kursi',c:'Benda',lv:'N5'},
+{w:'鞄',k:'かばん',r:'kaban',m:'tas',c:'Benda',lv:'N5'},
+{w:'傘',k:'かさ',r:'kasa',m:'payung',c:'Benda',lv:'N5'},
+{w:'時計',k:'とけい',r:'tokei',m:'jam',c:'Benda',lv:'N5'},
+{w:'電話',k:'でんわ',r:'denwa',m:'telepon',c:'Benda',lv:'N5'},
+{w:'テレビ',k:'てれび',r:'terebi',m:'TV',c:'Benda',lv:'N5'},
+{w:'カメラ',k:'かめら',r:'kamera',m:'kamera',c:'Benda',lv:'N5'},
+{w:'車',k:'くるま',r:'kuruma',m:'mobil',c:'Benda',lv:'N5'},
+{w:'自転車',k:'じてんしゃ',r:'jitensha',m:'sepeda',c:'Benda',lv:'N5'},
+{w:'電車',k:'でんしゃ',r:'densha',m:'kereta',c:'Benda',lv:'N5'},
+{w:'飛行機',k:'ひこうき',r:'hikouki',m:'pesawat',c:'Benda',lv:'N5'},
+{w:'財布',k:'さいふ',r:'saifu',m:'dompet',c:'Benda',lv:'N4'},
+{w:'眼鏡',k:'めがね',r:'megane',m:'kacamata',c:'Benda',lv:'N4'},
+{w:'帽子',k:'ぼうし',r:'boushi',m:'topi',c:'Benda',lv:'N5'},
+{w:'服',k:'ふく',r:'fuku',m:'pakaian',c:'Benda',lv:'N4'},
+{w:'靴',k:'くつ',r:'kutsu',m:'sepatu',c:'Benda',lv:'N5'},
+{w:'靴下',k:'くつした',r:'kutsushita',m:'kaus kaki',c:'Benda',lv:'N4'},
+{w:'窓',k:'まど',r:'mado',m:'jendela',c:'Benda',lv:'N5'},
+{w:'ドア',k:'どあ',r:'doa',m:'pintu',c:'Benda',lv:'N5'},
+{w:'鍵',k:'かぎ',r:'kagi',m:'kunci',c:'Benda',lv:'N5'},
+{w:'箱',k:'はこ',r:'hako',m:'kotak',c:'Benda',lv:'N5'},
+{w:'花',k:'はな',r:'hana',m:'bunga',c:'Benda',lv:'N5'},
+{w:'木',k:'き',r:'ki',m:'pohon',c:'Benda',lv:'N5'},
+{w:'山',k:'やま',r:'yama',m:'gunung',c:'Benda',lv:'N5'},
+{w:'川',k:'かわ',r:'kawa',m:'sungai',c:'Benda',lv:'N5'},
+{w:'海',k:'うみ',r:'umi',m:'laut',c:'Benda',lv:'N5'},
+{w:'空',k:'そら',r:'sora',m:'langit',c:'Benda',lv:'N5'},
+{w:'雨',k:'あめ',r:'ame',m:'hujan',c:'Benda',lv:'N5'},
+{w:'雪',k:'ゆき',r:'yuki',m:'salju',c:'Benda',lv:'N5'},
+{w:'風',k:'かぜ',r:'kaze',m:'angin',c:'Benda',lv:'N5'},
+{w:'一',k:'いち',r:'ichi',m:'satu',c:'Angka',lv:'N5'},
+{w:'二',k:'に',r:'ni',m:'dua',c:'Angka',lv:'N5'},
+{w:'三',k:'さん',r:'san',m:'tiga',c:'Angka',lv:'N5'},
+{w:'四',k:'よん',r:'yon',m:'empat',c:'Angka',lv:'N5'},
+{w:'五',k:'ご',r:'go',m:'lima',c:'Angka',lv:'N5'},
+{w:'六',k:'ろく',r:'roku',m:'enam',c:'Angka',lv:'N5'},
+{w:'七',k:'なな',r:'nana',m:'tujuh',c:'Angka',lv:'N5'},
+{w:'八',k:'はち',r:'hachi',m:'delapan',c:'Angka',lv:'N5'},
+{w:'九',k:'きゅう',r:'kyuu',m:'sembilan',c:'Angka',lv:'N5'},
+{w:'十',k:'じゅう',r:'juu',m:'sepuluh',c:'Angka',lv:'N5'},
+{w:'百',k:'ひゃく',r:'hyaku',m:'seratus',c:'Angka',lv:'N5'},
+{w:'千',k:'せん',r:'sen',m:'seribu',c:'Angka',lv:'N5'},
+{w:'万',k:'まん',r:'man',m:'sepuluh ribu',c:'Angka',lv:'N5'},
+{w:'零',k:'ゼロ',r:'zero',m:'nol',c:'Angka',lv:'N4'},
+{w:'一つ',k:'ひとつ',r:'hitotsu',m:'satu (benda)',c:'Penghitung',lv:'N5'},
+{w:'二つ',k:'ふたつ',r:'futatsu',m:'dua (benda)',c:'Penghitung',lv:'N5'},
+{w:'三つ',k:'みっつ',r:'mittsu',m:'tiga (benda)',c:'Penghitung',lv:'N5'},
+{w:'〜人',k:'にん',r:'nin',m:'penghitung orang',c:'Penghitung',lv:'N5'},
+{w:'〜枚',k:'まい',r:'mai',m:'penghitung lembar',c:'Penghitung',lv:'N5'},
+{w:'〜台',k:'だい',r:'dai',m:'penghitung mesin',c:'Penghitung',lv:'N5'},
+{w:'〜本',k:'ほん',r:'hon',m:'penghitung batang',c:'Penghitung',lv:'N5'},
+{w:'〜匹',k:'ひき',r:'hiki',m:'penghitung hewan',c:'Penghitung',lv:'N5'},
+{w:'〜歳',k:'さい',r:'sai',m:'penghitung umur',c:'Penghitung',lv:'N5'},
+{w:'〜回',k:'かい',r:'kai',m:'penghitung kali',c:'Penghitung',lv:'N5'},
+{w:'〜階',k:'かい',r:'kai',m:'penghitung lantai',c:'Penghitung',lv:'N5'},
+{w:'〜番',k:'ばん',r:'ban',m:'penghitung nomor',c:'Penghitung',lv:'N4'},
+{w:'〜冊',k:'さつ',r:'satsu',m:'penghitung buku',c:'Penghitung',lv:'N4'},
+{w:'〜杯',k:'はい',r:'hai',m:'penghitung gelas',c:'Penghitung',lv:'N4'},
+{w:'色',k:'いろ',r:'iro',m:'warna',c:'Warna',lv:'N4'},
+{w:'赤',k:'あか',r:'aka',m:'merah',c:'Warna',lv:'N4'},
+{w:'青',k:'あお',r:'ao',m:'biru',c:'Warna',lv:'N4'},
+{w:'黄色',k:'きいろ',r:'kiiro',m:'kuning',c:'Warna',lv:'N5'},
+{w:'緑',k:'みどり',r:'midori',m:'hijau',c:'Warna',lv:'N4'},
+{w:'茶色',k:'ちゃいろ',r:'chairo',m:'coklat',c:'Warna',lv:'N4'},
+{w:'黒',k:'くろ',r:'kuro',m:'hitam',c:'Warna',lv:'N4'},
+{w:'白',k:'しろ',r:'shiro',m:'putih',c:'Warna',lv:'N4'},
+{w:'灰色',k:'はいいろ',r:'haiiro',m:'abu-abu',c:'Warna',lv:'N4'},
+{w:'紫',k:'むらさき',r:'murasaki',m:'ungu',c:'Warna',lv:'N4'},
+{w:'桃色',k:'ももいろ',r:'momoiro',m:'pink',c:'Warna',lv:'N4'},
+{w:'水色',k:'みずいろ',r:'mizuiro',m:'biru muda',c:'Warna',lv:'N4'},
+{w:'体',k:'からだ',r:'karada',m:'tubuh',c:'Tubuh',lv:'N4'},
+{w:'頭',k:'あたま',r:'atama',m:'kepala',c:'Tubuh',lv:'N4'},
+{w:'顔',k:'かお',r:'kao',m:'wajah',c:'Tubuh',lv:'N4'},
+{w:'目',k:'め',r:'me',m:'mata',c:'Tubuh',lv:'N4'},
+{w:'耳',k:'みみ',r:'mimi',m:'telinga',c:'Tubuh',lv:'N4'},
+{w:'鼻',k:'はな',r:'hana',m:'hidung',c:'Tubuh',lv:'N4'},
+{w:'口',k:'くち',r:'kuchi',m:'mulut',c:'Tubuh',lv:'N4'},
+{w:'歯',k:'は',r:'ha',m:'gigi',c:'Tubuh',lv:'N4'},
+{w:'首',k:'くび',r:'kubi',m:'leher',c:'Tubuh',lv:'N4'},
+{w:'肩',k:'かた',r:'kata',m:'bahu',c:'Tubuh',lv:'N4'},
+{w:'胸',k:'むね',r:'mune',m:'dada',c:'Tubuh',lv:'N4'},
+{w:'腹',k:'はら',r:'hara',m:'perut',c:'Tubuh',lv:'N4'},
+{w:'お腹',k:'おなか',r:'onaka',m:'perut (sopan)',c:'Tubuh',lv:'N5'},
+{w:'背',k:'せ',r:'se',m:'punggung/tinggi',c:'Tubuh',lv:'N4'},
+{w:'腕',k:'うで',r:'ude',m:'lengan',c:'Tubuh',lv:'N4'},
+{w:'手',k:'て',r:'te',m:'tangan',c:'Tubuh',lv:'N4'},
+{w:'指',k:'ゆび',r:'yubi',m:'jari',c:'Tubuh',lv:'N4'},
+{w:'足',k:'あし',r:'ashi',m:'kaki',c:'Tubuh',lv:'N4'},
+{w:'血',k:'ち',r:'chi',m:'darah',c:'Tubuh',lv:'N4'},
+{w:'骨',k:'ほね',r:'hone',m:'tulang',c:'Tubuh',lv:'N4'},
+{w:'声',k:'こえ',r:'koe',m:'suara',c:'Tubuh',lv:'N4'},
+{w:'洋服',k:'ようふく',r:'youfuku',m:'pakaian Barat',c:'Pakaian',lv:'N4'},
+{w:'着物',k:'きもの',r:'kimono',m:'kimono',c:'Pakaian',lv:'N4'},
+{w:'シャツ',k:'しゃつ',r:'shatsu',m:'kemeja',c:'Pakaian',lv:'N5'},
+{w:'ズボン',k:'ずぼん',r:'zubon',m:'celana panjang',c:'Pakaian',lv:'N5'},
+{w:'スカート',k:'すかーと',r:'sukaato',m:'rok',c:'Pakaian',lv:'N5'},
+{w:'上着',k:'うわぎ',r:'uwagi',m:'jaket',c:'Pakaian',lv:'N4'},
+{w:'コート',k:'こーと',r:'kooto',m:'mantel',c:'Pakaian',lv:'N4'},
+{w:'セーター',k:'せーたー',r:'seetaa',m:'sweter',c:'Pakaian',lv:'N4'},
+{w:'指輪',k:'ゆびわ',r:'yubiwa',m:'cincin',c:'Pakaian',lv:'N4'},
+{w:'バイク',k:'ばいく',r:'baiku',m:'sepeda motor',c:'Kendaraan',lv:'N5'},
+{w:'地下鉄',k:'ちかてつ',r:'chikatetsu',m:'subway',c:'Kendaraan',lv:'N4'},
+{w:'新幹線',k:'しんかんせん',r:'shinkansen',m:'kereta cepat',c:'Kendaraan',lv:'N4'},
+{w:'バス',k:'ばす',r:'basu',m:'bus',c:'Kendaraan',lv:'N5'},
+{w:'タクシー',k:'たくしー',r:'takushii',m:'taksi',c:'Kendaraan',lv:'N5'},
+{w:'船',k:'ふね',r:'fune',m:'kapal',c:'Kendaraan',lv:'N4'},
+{w:'自動車',k:'じどうしゃ',r:'jidousha',m:'mobil (formal)',c:'Kendaraan',lv:'N4'},
+{w:'天気',k:'てんき',r:'tenki',m:'cuaca',c:'Cuaca',lv:'N5'},
+{w:'晴れ',k:'はれ',r:'hare',m:'cerah',c:'Cuaca',lv:'N5'},
+{w:'曇り',k:'くもり',r:'kumori',m:'berawan',c:'Cuaca',lv:'N5'},
+{w:'雷',k:'かみなり',r:'kaminari',m:'petir',c:'Cuaca',lv:'N4'},
+{w:'台風',k:'たいふう',r:'taifuu',m:'topan',c:'Cuaca',lv:'N4'},
+{w:'池',k:'いけ',r:'ike',m:'kolam',c:'Alam',lv:'N4'},
+{w:'湖',k:'みずうみ',r:'mizuumi',m:'danau',c:'Alam',lv:'N4'},
+{w:'島',k:'しま',r:'shima',m:'pulau',c:'Alam',lv:'N4'},
+{w:'森',k:'もり',r:'mori',m:'hutan',c:'Alam',lv:'N4'},
+{w:'林',k:'はやし',r:'hayashi',m:'hutan kecil',c:'Alam',lv:'N4'},
+{w:'石',k:'いし',r:'ishi',m:'batu',c:'Alam',lv:'N4'},
+{w:'土',k:'つち',r:'tsuchi',m:'tanah',c:'Alam',lv:'N4'},
+{w:'星',k:'ほし',r:'hoshi',m:'bintang',c:'Alam',lv:'N4'},
+{w:'月',k:'つき',r:'tsuki',m:'bulan',c:'Alam',lv:'N5'},
+{w:'太陽',k:'たいよう',r:'taiyou',m:'matahari',c:'Alam',lv:'N4'},
+{w:'火',k:'ひ',r:'hi',m:'api',c:'Alam',lv:'N5'},
+{w:'春',k:'はる',r:'haru',m:'musim semi',c:'Musim',lv:'N4'},
+{w:'夏',k:'なつ',r:'natsu',m:'musim panas',c:'Musim',lv:'N4'},
+{w:'秋',k:'あき',r:'aki',m:'musim gugur',c:'Musim',lv:'N4'},
+{w:'冬',k:'ふゆ',r:'fuyu',m:'musim dingin',c:'Musim',lv:'N4'},
+{w:'季節',k:'きせつ',r:'kisetsu',m:'musim',c:'Musim',lv:'N4'},
+{w:'運動',k:'うんどう',r:'undou',m:'olahraga',c:'Olahraga',lv:'N4'},
+{w:'野球',k:'やきゅう',r:'yakyuu',m:'bisbol',c:'Olahraga',lv:'N4'},
+{w:'サッカー',k:'さっかー',r:'sakkaa',m:'sepak bola',c:'Olahraga',lv:'N5'},
+{w:'テニス',k:'てにす',r:'tenisu',m:'tenis',c:'Olahraga',lv:'N5'},
+{w:'水泳',k:'すいえい',r:'suiei',m:'renang',c:'Olahraga',lv:'N4'},
+{w:'柔道',k:'じゅうどう',r:'juudou',m:'judo',c:'Olahraga',lv:'N4'},
+{w:'空手',k:'からて',r:'karate',m:'karate',c:'Olahraga',lv:'N4'},
+{w:'試合',k:'しあい',r:'shiai',m:'pertandingan',c:'Olahraga',lv:'N4'},
+{w:'映画',k:'えいが',r:'eiga',m:'film',c:'Hobi',lv:'N5'},
+{w:'音楽',k:'おんがく',r:'ongaku',m:'musik',c:'Hobi',lv:'N4'},
+{w:'写真',k:'しゃしん',r:'shashin',m:'foto',c:'Hobi',lv:'N4'},
+{w:'旅行',k:'りょこう',r:'ryokou',m:'perjalanan',c:'Hobi',lv:'N4'},
+{w:'読書',k:'どくしょ',r:'dokusho',m:'membaca buku',c:'Hobi',lv:'N4'},
+{w:'買い物',k:'かいもの',r:'kaimono',m:'belanja',c:'Hobi',lv:'N5'},
+{w:'散歩',k:'さんぽ',r:'sanpo',m:'jalan-jalan',c:'Hobi',lv:'N4'},
+{w:'歌',k:'うた',r:'uta',m:'lagu',c:'Hobi',lv:'N4'},
+{w:'先生',k:'せんせい',r:'sensei',m:'guru',c:'Profesi',lv:'N5'},
+{w:'学生',k:'がくせい',r:'gakusei',m:'pelajar',c:'Profesi',lv:'N5'},
+{w:'医者',k:'いしゃ',r:'isha',m:'dokter',c:'Profesi',lv:'N5'},
+{w:'看護師',k:'かんごし',r:'kangoshi',m:'perawat',c:'Profesi',lv:'N4'},
+{w:'会社員',k:'かいしゃいん',r:'kaishain',m:'karyawan',c:'Profesi',lv:'N5'},
+{w:'店員',k:'てんいん',r:'tenin',m:'pegawai toko',c:'Profesi',lv:'N5'},
+{w:'警察官',k:'けいさつかん',r:'keisatsukan',m:'polisi',c:'Profesi',lv:'N4'},
+{w:'弁護士',k:'べんごし',r:'bengoshi',m:'pengacara',c:'Profesi',lv:'N4'},
+{w:'公務員',k:'こうむいん',r:'koumuin',m:'pegawai negeri',c:'Profesi',lv:'N4'},
+{w:'留学生',k:'りゅうがくせい',r:'ryuugakusei',m:'pelajar asing',c:'Profesi',lv:'N4'},
+{w:'主婦',k:'しゅふ',r:'shufu',m:'ibu rumah tangga',c:'Profesi',lv:'N4'},
+{w:'運転手',k:'うんてんしゅ',r:'untenshu',m:'sopir',c:'Profesi',lv:'N4'},
+{w:'料理人',k:'りょうりにん',r:'ryourinin',m:'koki',c:'Profesi',lv:'N4'},
+{w:'農家',k:'のうか',r:'nouka',m:'petani',c:'Profesi',lv:'N4'},
+{w:'大きい',k:'おおきい',r:'ookii',m:'besar',c:'Kata Sifat',lv:'N5'},
+{w:'小さい',k:'ちいさい',r:'chiisai',m:'kecil',c:'Kata Sifat',lv:'N5'},
+{w:'高い',k:'たかい',r:'takai',m:'tinggi/mahal',c:'Kata Sifat',lv:'N5'},
+{w:'低い',k:'ひくい',r:'hikui',m:'rendah',c:'Kata Sifat',lv:'N5'},
+{w:'安い',k:'やすい',r:'yasui',m:'murah',c:'Kata Sifat',lv:'N5'},
+{w:'新しい',k:'あたらしい',r:'atarashii',m:'baru',c:'Kata Sifat',lv:'N5'},
+{w:'古い',k:'ふるい',r:'furui',m:'tua/lama',c:'Kata Sifat',lv:'N5'},
+{w:'良い',k:'よい',r:'yoi',m:'baik',c:'Kata Sifat',lv:'N5'},
+{w:'悪い',k:'わるい',r:'warui',m:'buruk',c:'Kata Sifat',lv:'N5'},
+{w:'長い',k:'ながい',r:'nagai',m:'panjang',c:'Kata Sifat',lv:'N5'},
+{w:'短い',k:'みじかい',r:'mijikai',m:'pendek',c:'Kata Sifat',lv:'N5'},
+{w:'早い',k:'はやい',r:'hayai',m:'cepat (waktu)',c:'Kata Sifat',lv:'N5'},
+{w:'速い',k:'はやい',r:'hayai',m:'cepat (kecepatan)',c:'Kata Sifat',lv:'N5'},
+{w:'遅い',k:'おそい',r:'osoi',m:'lambat',c:'Kata Sifat',lv:'N5'},
+{w:'多い',k:'おおい',r:'ooi',m:'banyak',c:'Kata Sifat',lv:'N5'},
+{w:'少ない',k:'すくない',r:'sukunai',m:'sedikit',c:'Kata Sifat',lv:'N5'},
+{w:'熱い',k:'あつい',r:'atsui',m:'panas (benda)',c:'Kata Sifat',lv:'N5'},
+{w:'暑い',k:'あつい',r:'atsui',m:'panas (cuaca)',c:'Kata Sifat',lv:'N5'},
+{w:'寒い',k:'さむい',r:'samui',m:'dingin (cuaca)',c:'Kata Sifat',lv:'N5'},
+{w:'冷たい',k:'つめたい',r:'tsumetai',m:'dingin (benda)',c:'Kata Sifat',lv:'N5'},
+{w:'温かい',k:'あたたかい',r:'atatakai',m:'hangat',c:'Kata Sifat',lv:'N4'},
+{w:'暖かい',k:'あたたかい',r:'atatakai',m:'hangat (cuaca)',c:'Kata Sifat',lv:'N4'},
+{w:'涼しい',k:'すずしい',r:'suzushii',m:'sejuk',c:'Kata Sifat',lv:'N5'},
+{w:'面白い',k:'おもしろい',r:'omoshiroi',m:'menarik',c:'Kata Sifat',lv:'N5'},
+{w:'つまらない',k:'つまらない',r:'tsumaranai',m:'membosankan',c:'Kata Sifat',lv:'N5'},
+{w:'楽しい',k:'たのしい',r:'tanoshii',m:'menyenangkan',c:'Kata Sifat',lv:'N5'},
+{w:'嬉しい',k:'うれしい',r:'ureshii',m:'senang',c:'Kata Sifat',lv:'N5'},
+{w:'悲しい',k:'かなしい',r:'kanashii',m:'sedih',c:'Kata Sifat',lv:'N5'},
+{w:'寂しい',k:'さびしい',r:'sabishii',m:'sepi',c:'Kata Sifat',lv:'N4'},
+{w:'難しい',k:'むずかしい',r:'muzukashii',m:'sulit',c:'Kata Sifat',lv:'N5'},
+{w:'易しい',k:'やさしい',r:'yasashii',m:'mudah',c:'Kata Sifat',lv:'N5'},
+{w:'優しい',k:'やさしい',r:'yasashii',m:'ramah',c:'Kata Sifat',lv:'N4'},
+{w:'厳しい',k:'きびしい',r:'kibishii',m:'keras',c:'Kata Sifat',lv:'N4'},
+{w:'忙しい',k:'いそがしい',r:'isogashii',m:'sibuk',c:'Kata Sifat',lv:'N5'},
+{w:'美味しい',k:'おいしい',r:'oishii',m:'enak',c:'Kata Sifat',lv:'N5'},
+{w:'まずい',k:'まずい',r:'mazui',m:'tidak enak',c:'Kata Sifat',lv:'N5'},
+{w:'甘い',k:'あまい',r:'amai',m:'manis',c:'Kata Sifat',lv:'N5'},
+{w:'辛い',k:'からい',r:'karai',m:'pedas',c:'Kata Sifat',lv:'N5'},
+{w:'苦い',k:'にがい',r:'nigai',m:'pahit',c:'Kata Sifat',lv:'N5'},
+{w:'酸っぱい',k:'すっぱい',r:'suppai',m:'asam',c:'Kata Sifat',lv:'N5'},
+{w:'白い',k:'しろい',r:'shiroi',m:'putih',c:'Kata Sifat',lv:'N5'},
+{w:'黒い',k:'くろい',r:'kuroi',m:'hitam',c:'Kata Sifat',lv:'N5'},
+{w:'赤い',k:'あかい',r:'akai',m:'merah',c:'Kata Sifat',lv:'N5'},
+{w:'青い',k:'あおい',r:'aoi',m:'biru',c:'Kata Sifat',lv:'N5'},
+{w:'黄色い',k:'きいろい',r:'kiiroi',m:'kuning',c:'Kata Sifat',lv:'N5'},
+{w:'広い',k:'ひろい',r:'hiroi',m:'luas',c:'Kata Sifat',lv:'N5'},
+{w:'狭い',k:'せまい',r:'semai',m:'sempit',c:'Kata Sifat',lv:'N5'},
+{w:'重い',k:'おもい',r:'omoi',m:'berat',c:'Kata Sifat',lv:'N5'},
+{w:'軽い',k:'かるい',r:'karui',m:'ringan',c:'Kata Sifat',lv:'N5'},
+{w:'強い',k:'つよい',r:'tsuyoi',m:'kuat',c:'Kata Sifat',lv:'N5'},
+{w:'弱い',k:'よわい',r:'yowai',m:'lemah',c:'Kata Sifat',lv:'N5'},
+{w:'明るい',k:'あかるい',r:'akarui',m:'terang',c:'Kata Sifat',lv:'N5'},
+{w:'暗い',k:'くらい',r:'kurai',m:'gelap',c:'Kata Sifat',lv:'N5'},
+{w:'近い',k:'ちかい',r:'chikai',m:'dekat',c:'Kata Sifat',lv:'N5'},
+{w:'遠い',k:'とおい',r:'tooi',m:'jauh',c:'Kata Sifat',lv:'N5'},
+{w:'太い',k:'ふとい',r:'futoi',m:'tebal',c:'Kata Sifat',lv:'N5'},
+{w:'細い',k:'ほそい',r:'hosoi',m:'tipis',c:'Kata Sifat',lv:'N5'},
+{w:'若い',k:'わかい',r:'wakai',m:'muda',c:'Kata Sifat',lv:'N5'},
+{w:'危ない',k:'あぶない',r:'abunai',m:'berbahaya',c:'Kata Sifat',lv:'N5'},
+{w:'痛い',k:'いたい',r:'itai',m:'sakit',c:'Kata Sifat',lv:'N5'},
+{w:'欲しい',k:'ほしい',r:'hoshii',m:'ingin',c:'Kata Sifat',lv:'N5'},
+{w:'汚い',k:'きたない',r:'kitanai',m:'kotor',c:'Kata Sifat',lv:'N5'},
+{w:'素晴らしい',k:'すばらしい',r:'subarashii',m:'luar biasa',c:'Kata Sifat',lv:'N4'},
+{w:'珍しい',k:'めずらしい',r:'mezurashii',m:'langka',c:'Kata Sifat',lv:'N4'},
+{w:'悔しい',k:'くやしい',r:'kuyashii',m:'menyesal',c:'Kata Sifat',lv:'N4'},
+{w:'怖い',k:'こわい',r:'kowai',m:'takut',c:'Kata Sifat',lv:'N4'},
+{w:'眠い',k:'ねむい',r:'nemui',m:'mengantuk',c:'Kata Sifat',lv:'N4'},
+{w:'恥ずかしい',k:'はずかしい',r:'hazukashii',m:'malu',c:'Kata Sifat',lv:'N4'},
+{w:'苦しい',k:'くるしい',r:'kurushii',m:'sakit/berat',c:'Kata Sifat',lv:'N4'},
+{w:'細かい',k:'こまかい',r:'komakai',m:'detail',c:'Kata Sifat',lv:'N4'},
+{w:'深い',k:'ふかい',r:'fukai',m:'dalam',c:'Kata Sifat',lv:'N4'},
+{w:'浅い',k:'あさい',r:'asai',m:'dangkal',c:'Kata Sifat',lv:'N4'},
+{w:'濃い',k:'こい',r:'koi',m:'kental/pekat',c:'Kata Sifat',lv:'N4'},
+{w:'薄い',k:'うすい',r:'usui',m:'tipis/encer',c:'Kata Sifat',lv:'N4'},
+{w:'うるさい',k:'うるさい',r:'urusai',m:'berisik',c:'Kata Sifat',lv:'N4'},
+{w:'すごい',k:'すごい',r:'sugoi',m:'hebat',c:'Kata Sifat',lv:'N4'},
+{w:'ひどい',k:'ひどい',r:'hidoi',m:'parah',c:'Kata Sifat',lv:'N4'},
+{w:'正しい',k:'ただしい',r:'tadashii',m:'benar',c:'Kata Sifat',lv:'N4'},
+{w:'きれい',k:'きれい',r:'kirei',m:'cantik/bersih',c:'Kata Sifat',lv:'N5'},
+{w:'静か',k:'しずか',r:'shizuka',m:'tenang',c:'Kata Sifat',lv:'N5'},
+{w:'賑やか',k:'にぎやか',r:'nigiyaka',m:'ramai',c:'Kata Sifat',lv:'N5'},
+{w:'有名',k:'ゆうめい',r:'yuumei',m:'terkenal',c:'Kata Sifat',lv:'N5'},
+{w:'親切',k:'しんせつ',r:'shinsetsu',m:'baik hati',c:'Kata Sifat',lv:'N5'},
+{w:'元気',k:'げんき',r:'genki',m:'sehat',c:'Kata Sifat',lv:'N5'},
+{w:'暇',k:'ひま',r:'hima',m:'senggang',c:'Kata Sifat',lv:'N5'},
+{w:'上手',k:'じょうず',r:'jouzu',m:'pandai',c:'Kata Sifat',lv:'N5'},
+{w:'下手',k:'へた',r:'heta',m:'tidak pandai',c:'Kata Sifat',lv:'N5'},
+{w:'好き',k:'すき',r:'suki',m:'suka',c:'Kata Sifat',lv:'N5'},
+{w:'嫌い',k:'きらい',r:'kirai',m:'tidak suka',c:'Kata Sifat',lv:'N5'},
+{w:'大丈夫',k:'だいじょうぶ',r:'daijoubu',m:'tidak apa-apa',c:'Kata Sifat',lv:'N5'},
+{w:'大変',k:'たいへん',r:'taihen',m:'berat/sulit',c:'Kata Sifat',lv:'N4'},
+{w:'便利',k:'べんり',r:'benri',m:'praktis',c:'Kata Sifat',lv:'N4'},
+{w:'不便',k:'ふべん',r:'fuben',m:'tidak praktis',c:'Kata Sifat',lv:'N4'},
+{w:'大切',k:'たいせつ',r:'taisetsu',m:'penting',c:'Kata Sifat',lv:'N4'},
+{w:'複雑',k:'ふくざつ',r:'fukuzatsu',m:'rumit',c:'Kata Sifat',lv:'N4'},
+{w:'簡単',k:'かんたん',r:'kantan',m:'mudah',c:'Kata Sifat',lv:'N4'},
+{w:'特別',k:'とくべつ',r:'tokubetsu',m:'spesial',c:'Kata Sifat',lv:'N4'},
+{w:'安全',k:'あんぜん',r:'anzen',m:'aman',c:'Kata Sifat',lv:'N4'},
+{w:'危険',k:'きけん',r:'kiken',m:'bahaya',c:'Kata Sifat',lv:'N4'},
+{w:'残念',k:'ざんねん',r:'zannen',m:'menyesal',c:'Kata Sifat',lv:'N4'},
+{w:'十分',k:'じゅうぶん',r:'juubun',m:'cukup',c:'Kata Sifat',lv:'N4'},
+{w:'自由',k:'じゆう',r:'jiyuu',m:'bebas',c:'Kata Sifat',lv:'N4'},
+{w:'無理',k:'むり',r:'muri',m:'mustahil',c:'Kata Sifat',lv:'N4'},
+{w:'無料',k:'むりょう',r:'muryou',m:'gratis',c:'Kata Sifat',lv:'N4'},
+{w:'変',k:'へん',r:'hen',m:'aneh',c:'Kata Sifat',lv:'N4'},
+{w:'真面目',k:'まじめ',r:'majime',m:'rajin',c:'Kata Sifat',lv:'N4'},
+{w:'丁寧',k:'ていねい',r:'teinei',m:'sopan',c:'Kata Sifat',lv:'N4'},
+{w:'熱心',k:'ねっしん',r:'nesshin',m:'antusias',c:'Kata Sifat',lv:'N4'},
+{w:'面倒',k:'めんどう',r:'mendou',m:'repot',c:'Kata Sifat',lv:'N4'},
+{w:'迷惑',k:'めいわく',r:'meiwaku',m:'mengganggu',c:'Kata Sifat',lv:'N4'},
+{w:'得意',k:'とくい',r:'tokui',m:'jago',c:'Kata Sifat',lv:'N4'},
+{w:'苦手',k:'にがて',r:'nigate',m:'tidak mahir',c:'Kata Sifat',lv:'N4'},
+{w:'立派',k:'りっぱ',r:'rippa',m:'megah',c:'Kata Sifat',lv:'N4'},
+{w:'同じ',k:'おなじ',r:'onaji',m:'sama',c:'Kata Sifat',lv:'N4'},
+{w:'とても',k:'とても',r:'totemo',m:'sangat',c:'Keterangan',lv:'N5'},
+{w:'少し',k:'すこし',r:'sukoshi',m:'sedikit',c:'Keterangan',lv:'N5'},
+{w:'ちょっと',k:'ちょっと',r:'chotto',m:'sebentar',c:'Keterangan',lv:'N5'},
+{w:'たくさん',k:'たくさん',r:'takusan',m:'banyak',c:'Keterangan',lv:'N5'},
+{w:'もう',k:'もう',r:'mou',m:'sudah',c:'Keterangan',lv:'N5'},
+{w:'まだ',k:'まだ',r:'mada',m:'belum',c:'Keterangan',lv:'N5'},
+{w:'いつも',k:'いつも',r:'itsumo',m:'selalu',c:'Keterangan',lv:'N5'},
+{w:'よく',k:'よく',r:'yoku',m:'sering',c:'Keterangan',lv:'N5'},
+{w:'時々',k:'ときどき',r:'tokidoki',m:'kadang-kadang',c:'Keterangan',lv:'N5'},
+{w:'たまに',k:'たまに',r:'tamani',m:'sekali-sekali',c:'Keterangan',lv:'N5'},
+{w:'全然',k:'ぜんぜん',r:'zenzen',m:'sama sekali',c:'Keterangan',lv:'N5'},
+{w:'あまり',k:'あまり',r:'amari',m:'tidak begitu',c:'Keterangan',lv:'N5'},
+{w:'一番',k:'いちばん',r:'ichiban',m:'paling',c:'Keterangan',lv:'N5'},
+{w:'もっと',k:'もっと',r:'motto',m:'lebih',c:'Keterangan',lv:'N5'},
+{w:'すぐに',k:'すぐに',r:'sugu ni',m:'segera',c:'Keterangan',lv:'N5'},
+{w:'ゆっくり',k:'ゆっくり',r:'yukkuri',m:'pelan-pelan',c:'Keterangan',lv:'N5'},
+{w:'だんだん',k:'だんだん',r:'dandan',m:'perlahan',c:'Keterangan',lv:'N4'},
+{w:'だいたい',k:'だいたい',r:'daitai',m:'kira-kira',c:'Keterangan',lv:'N5'},
+{w:'たいてい',k:'たいてい',r:'taitei',m:'biasanya',c:'Keterangan',lv:'N4'},
+{w:'本当に',k:'ほんとうに',r:'hontou ni',m:'sungguh',c:'Keterangan',lv:'N5'},
+{w:'初めて',k:'はじめて',r:'hajimete',m:'pertama kali',c:'Keterangan',lv:'N4'},
+{w:'急に',k:'きゅうに',r:'kyuu ni',m:'tiba-tiba',c:'Keterangan',lv:'N4'},
+{w:'はい',k:'はい',r:'hai',m:'ya',c:'Ungkapan',lv:'N5'},
+{w:'いいえ',k:'いいえ',r:'iie',m:'tidak',c:'Ungkapan',lv:'N5'},
+{w:'お願いします',k:'おねがいします',r:'onegaishimasu',m:'tolong',c:'Ungkapan',lv:'N5'},
+{w:'どうぞ',k:'どうぞ',r:'douzo',m:'silakan',c:'Ungkapan',lv:'N5'},
+{w:'どうも',k:'どうも',r:'doumo',m:'terima kasih/maaf',c:'Ungkapan',lv:'N5'},
+{w:'すみません',k:'すみません',r:'sumimasen',m:'permisi/maaf',c:'Ungkapan',lv:'N5'},
+{w:'ごめんなさい',k:'ごめんなさい',r:'gomen nasai',m:'maaf',c:'Ungkapan',lv:'N5'},
+{w:'しつれいします',k:'しつれいします',r:'shitsurei shimasu',m:'permisi',c:'Ungkapan',lv:'N5'},
+{w:'いただきます',k:'いただきます',r:'itadakimasu',m:'selamat makan',c:'Ungkapan',lv:'N5'},
+{w:'ごちそうさま',k:'ごちそうさま',r:'gochisousama',m:'terima kasih makanannya',c:'Ungkapan',lv:'N5'},
+{w:'いってきます',k:'いってきます',r:'ittekimasu',m:'saya pergi',c:'Ungkapan',lv:'N5'},
+{w:'ただいま',k:'ただいま',r:'tadaima',m:'saya pulang',c:'Ungkapan',lv:'N5'}
+];
+
+const POOL=[];const SEEN=new Set();
+KANJI.forEach(k=>{if(SEEN.has(k[0]))return;SEEN.add(k[0]);
+POOL.push({id:POOL.length,k:k[0],m:k[1],on:k[2],kun:k[3],lv:k[4],vocab:k[5]||[]})});
+const BY_K={};POOL.forEach(c=>BY_K[c.k]=c);
+
+const KEY='kanji-dojo-v9';
+const DEFAULT_CFG={source:'kanji',count:20,type:'mixed',pool:'all',timer:0};
+let store={progress:{},stats:{right:0,wrong:0},quizConfig:Object.assign({},DEFAULT_CFG)};
+try{const raw=localStorage.getItem(KEY);if(raw){const d=JSON.parse(raw);
+store.progress=d.progress||{};store.stats=d.stats||{right:0,wrong:0};
+if(d.quizConfig)Object.assign(store.quizConfig,d.quizConfig)}}catch(e){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+function prog(k){return store.progress[k]||(store.progress[k]={box:0,right:0,wrong:0})}
+function boxOf(k){return store.progress[k]?store.progress[k].box:0}
+function bump(k,ok){const p=prog(k);
+if(ok){p.box=Math.min(p.box+1,5);p.right++;store.stats.right++}
+else{p.box=0;p.wrong++;store.stats.wrong++}persist()}
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const pool=()=>POOL.filter(c=>S.level==='ALL'||c.lv===S.level);
+
+const S={level:'N5',mode:'cards',queue:[],idx:0,flipped:false,quiz:null,
+quizConfig:store.quizConfig,dictSearch:'',dictCat:'ALL'};
+function saveConfig(){store.quizConfig=S.quizConfig;persist()}
+
+function newDeck(){const p=shuffle(pool());
+p.sort((a,b)=>boxOf(a.k)-boxOf(b.k));
+S.queue=p.slice(0,20);S.idx=0;S.flipped=false}
+
+function answer(ok){if(S.idx>=S.queue.length)return;
+bump(S.queue[S.idx].k,ok);S.idx++;S.flipped=false;renderCards();renderStats()}
+
+function renderCards(){const view=document.getElementById('view');
+if(S.idx>=S.queue.length){view.innerHTML=`
+<div class="empty"><div class="empty-k jp">完</div>
+<h2>Round complete</h2>
+<p>You went through ${S.queue.length} cards. Nice work.</p>
+<button class="btn btn-good" id="newRound">New round</button></div>`;
+document.getElementById('newRound').onclick=()=>{newDeck();renderCards();renderStats()};
+return}
+const c=S.queue[S.idx];const pct=Math.round((S.idx/S.queue.length)*100);
+const vocabHtml=c.vocab.length?`<div class="fc-vocab">
+<div class="v-lbl">Example words</div>
+${c.vocab.slice(0,3).map(v=>`<div class="v-item"><b class="jp">${v[0]}</b> <span class="v-read jp">(${v[1]})</span> <span class="romaji">${kanaToRomaji(v[1])}</span> — ${v[2]}</div>`).join('')}
+</div>`:'';
+view.innerHTML=`
+<div class="bar"><span>Card ${S.idx+1} of ${S.queue.length}</span>
+<span class="badge">${c.lv}</span></div>
+<div class="track"><i style="width:${pct}%"></i></div>
+<div class="flashcard ${S.flipped?'flipped':''}" id="fc">
+<div class="fc-inner">
+<div class="fc-face">
+<div class="fc-top-badge"><span class="tag">${c.lv}</span></div>
+<div class="kanji jp">${c.k}</div>
+<div class="hint">tap to flip</div>
+</div>
+<div class="fc-face fc-back">
+<div class="kanji-sm jp">${c.k}</div>
+<div class="meaning">${c.m}</div>
+<div class="readings">
+<div><span class="lbl jp">音</span>${c.on} <span class="romaji">${kanaToRomaji(c.on)}</span></div>
+<div><span class="lbl jp">訓</span>${c.kun} <span class="romaji">${kanaToRomaji(c.kun)}</span></div>
+</div>${vocabHtml}
+</div></div></div>
+<div class="row">
+<button class="btn btn-again" id="againBtn">Again</button>
+<button class="btn btn-good" id="goodBtn">Got it</button>
+</div>
+<p class="kbd">Space = flip · ← Again · → Got it</p>`;
+const fc=document.getElementById('fc');
+fc.onclick=()=>{S.flipped=!S.flipped;fc.classList.toggle('flipped',S.flipped)};
+document.getElementById('againBtn').onclick=e=>{e.stopPropagation();answer(false)};
+document.getElementById('goodBtn').onclick=e=>{e.stopPropagation();answer(true)}}
+
+/* ===== QUIZ POOL: multi-source ===== */
+function levelMatch(lv){
+  if(S.level==='ALL')return true;
+  if(S.level==='LIFE')return lv==='N5'||lv==='LIFE';
+  return lv===S.level;
+}
+function getQuizPool(){
+  const cfg=S.quizConfig;const src=cfg.source||'kanji';
+  if(src==='vocab'){
+    let base=VOCAB.filter(v=>levelMatch(v.lv));
+    switch(cfg.pool){
+      case'weak':return base.filter(v=>boxOf('v:'+v.w)<3);
+      case'new':return base.filter(v=>!store.progress['v:'+v.w]);
+      case'mastered':return base.filter(v=>boxOf('v:'+v.w)>=4);
+      default:return base;
+    }
+  }
+  if(src==='bunpou'){
+    let base=BUNPOU.filter(b=>levelMatch(b.lv));
+    switch(cfg.pool){
+      case'weak':return base.filter(b=>boxOf('b:'+b.p)<3);
+      case'new':return base.filter(b=>!store.progress['b:'+b.p]);
+      case'mastered':return base.filter(b=>boxOf('b:'+b.p)>=4);
+      default:return base;
+    }
+  }
+  let base=pool();
+  if(cfg.type==='vocab')base=base.filter(c=>c.vocab.length>0);
+  switch(cfg.pool){
+    case'weak':return base.filter(c=>boxOf(c.k)<3);
+    case'new':return base.filter(c=>!store.progress[c.k]);
+    case'mastered':return base.filter(c=>boxOf(c.k)>=4);
+    default:return base;
+  }
+}
+function poolCounts(){
+  const cfg=S.quizConfig;const src=cfg.source||'kanji';
+  if(src==='vocab'){
+    const base=VOCAB.filter(v=>levelMatch(v.lv));return{
+      all:base.length,
+      weak:base.filter(v=>boxOf('v:'+v.w)<3).length,
+      new:base.filter(v=>!store.progress['v:'+v.w]).length,
+      mastered:base.filter(v=>boxOf('v:'+v.w)>=4).length};
+  }
+  if(src==='bunpou'){
+    const base=BUNPOU.filter(b=>levelMatch(b.lv));return{
+      all:base.length,
+      weak:base.filter(b=>boxOf('b:'+b.p)<3).length,
+      new:base.filter(b=>!store.progress['b:'+b.p]).length,
+      mastered:base.filter(b=>boxOf('b:'+b.p)>=4).length};
+  }
+  const base=pool();return{
+    all:base.length,
+    weak:base.filter(c=>boxOf(c.k)<3).length,
+    new:base.filter(c=>!store.progress[c.k]).length,
+    mastered:base.filter(c=>boxOf(c.k)>=4).length};
+}
+
+/* ===== KANJI QUESTION ===== */
+function makeKanjiQuestion(card,type){
+const others=shuffle(POOL.filter(x=>x.k!==card.k));
+if(type==='kanji2mean'){
+const d=others.filter(o=>o.m!==card.m).slice(0,3);
+if(d.length<3)return makeKanjiQuestion(card,'mean2kanji');
+return{key:card.k,card,type,
+prompt:`<div class="q-label">What does this kanji mean?</div>
+<div class="q-kanji jp">${card.k}</div>`,
+opts:shuffle([{label:card.m,correct:true},
+...d.map(o=>({label:o.m,correct:false}))])}}
+if(type==='mean2kanji'){
+const d=others.filter(o=>o.m!==card.m).slice(0,3);
+if(d.length<3)return makeKanjiQuestion(card,'kanji2mean');
+return{key:card.k,card,type,
+prompt:`<div class="q-label">Which kanji means…</div>
+<div class="q-text">${card.m}</div>`,
+opts:shuffle([{label:`<span class="jp opt-k">${card.k}</span>`,correct:true},
+...d.map(o=>({label:`<span class="jp opt-k">${o.k}</span>`,correct:false}))])}}
+if(type==='reading'){
+const readings=[card.on,card.kun].filter(r=>r&&r!=='—');
+if(!readings.length)return makeKanjiQuestion(card,'kanji2mean');
+const ans=readings[Math.floor(Math.random()*readings.length)];
+const seen=new Set(readings);const distract=[];
+for(const o of others){
+const rs=[o.on,o.kun].filter(r=>r&&r!=='—');
+for(const r of rs){if(!seen.has(r)){seen.add(r);distract.push(r);break}}
+if(distract.length>=3)break}
+if(distract.length<3)return makeKanjiQuestion(card,'kanji2mean');
+return{key:card.k,card,type,
+prompt:`<div class="q-label">Which is a reading of this kanji?</div>
+<div class="q-kanji jp">${card.k}</div>`,
+opts:shuffle([{label:ans+' <span class="romaji">'+kanaToRomaji(ans)+'</span>',correct:true},
+...distract.map(d=>({label:d+' <span class="romaji">'+kanaToRomaji(d)+'</span>',correct:false}))])}}
+if(type==='vocab'){
+if(!card.vocab.length)return makeKanjiQuestion(card,'kanji2mean');
+const v=card.vocab[Math.floor(Math.random()*card.vocab.length)];
+const distPool=[];
+for(const o of others){
+for(const ov of o.vocab){
+if(ov[2]!==v[2]&&!distPool.find(x=>x[2]===ov[2]))distPool.push(ov);
+if(distPool.length>=3)break}
+if(distPool.length>=3)break}
+if(distPool.length<3)return makeKanjiQuestion(card,'kanji2mean');
+return{key:card.k,card,type,
+prompt:`<div class="q-label">What does this word mean?</div>
+<div class="q-word jp">${v[0]}</div>
+<div class="q-sub">${v[1]} · ${kanaToRomaji(v[1])}</div>`,
+opts:shuffle([{label:v[2],correct:true},
+...distPool.map(d=>({label:d[2],correct:false}))])}}
+return makeKanjiQuestion(card,'kanji2mean')}
+
+/* ===== VOCAB QUESTION ===== */
+function makeVocabQuestion(v,type){
+  const others=shuffle(VOCAB.filter(x=>x.w!==v.w));
+  if(type==='mixed'){const c=['w2m','m2w','r2w','w2r'];type=c[Math.floor(Math.random()*4)]}
+  if(type==='w2m'){
+    const d=others.filter(o=>o.m!==v.m).slice(0,3);
+    if(d.length<3)return makeVocabQuestion(v,'m2w');
+    return{key:'v:'+v.w,card:v,type,
+      prompt:`<div class="q-label">Apa arti kata ini?</div>
+<div class="q-word jp">${v.w}</div>
+<div class="q-sub">${v.k} · ${v.r}</div>`,
+      opts:shuffle([{label:v.m,correct:true},
+        ...d.map(o=>({label:o.m,correct:false}))])};
+  }
+  if(type==='m2w'){
+    const d=others.filter(o=>o.m!==v.m).slice(0,3);
+    if(d.length<3)return makeVocabQuestion(v,'w2m');
+    return{key:'v:'+v.w,card:v,type,
+      prompt:`<div class="q-label">Kata mana yang berarti…</div>
+<div class="q-text">${v.m}</div>`,
+      opts:shuffle([{label:`<span class="jp opt-k" style="font-size:22px">${v.w}</span>`,correct:true},
+        ...d.map(o=>({label:`<span class="jp opt-k" style="font-size:22px">${o.w}</span>`,correct:false}))])};
+  }
+  if(type==='r2w'){
+    const d=others.filter(o=>o.k!==v.k).slice(0,3);
+    return{key:'v:'+v.w,card:v,type,
+      prompt:`<div class="q-label">Kanji mana yang dibaca…</div>
+<div class="q-text jp">${v.k}</div>
+<div class="q-sub">${v.r}</div>`,
+      opts:shuffle([{label:`<span class="jp opt-k" style="font-size:22px">${v.w}</span>`,correct:true},
+        ...d.map(o=>({label:`<span class="jp opt-k" style="font-size:22px">${o.w}</span>`,correct:false}))])};
+  }
+  if(type==='w2r'){
+    const d=others.filter(o=>o.k!==v.k).slice(0,3);
+    return{key:'v:'+v.w,card:v,type,
+      prompt:`<div class="q-label">Bagaimana bacaan kata ini?</div>
+<div class="q-word jp">${v.w}</div>`,
+      opts:shuffle([{label:v.k+' <span class="romaji">'+v.r+'</span>',correct:true},
+        ...d.map(o=>({label:o.k+' <span class="romaji">'+o.r+'</span>',correct:false}))])};
+  }
+  return makeVocabQuestion(v,'w2m');
+}
+
+/* ===== BUNPOU QUESTION ===== */
+function makeBunpouQuestion(b,type){
+  const others=shuffle(BUNPOU.filter(x=>x.p!==b.p));
+  if(type==='mixed'){const c=['p2m','m2p'];type=c[Math.floor(Math.random()*2)]}
+  if(type==='p2m'){
+    const d=others.filter(o=>o.m!==b.m).slice(0,3);
+    if(d.length<3)return makeBunpouQuestion(b,'m2p');
+    return{key:'b:'+b.p,card:b,type,
+      prompt:`<div class="q-label">Apa arti pola ini?</div>
+<div class="q-text jp">${b.p}</div>
+<div class="q-sub">${b.r}</div>`,
+      opts:shuffle([{label:b.m,correct:true},
+        ...d.map(o=>({label:o.m,correct:false}))])};
+  }
+  if(type==='m2p'){
+    const d=others.filter(o=>o.m!==b.m).slice(0,3);
+    if(d.length<3)return makeBunpouQuestion(b,'p2m');
+    return{key:'b:'+b.p,card:b,type,
+      prompt:`<div class="q-label">Pola mana yang berarti…</div>
+<div class="q-text">${b.m}</div>`,
+      opts:shuffle([{label:`<span class="jp" style="font-size:20px">${b.p}</span>`,correct:true},
+        ...d.map(o=>({label:`<span class="jp" style="font-size:20px">${o.p}</span>`,correct:false}))])};
+  }
+  return makeBunpouQuestion(b,'p2m');
+}
+
+function makeQuestion(item,type,src){
+  if(src==='vocab')return makeVocabQuestion(item,type);
+  if(src==='bunpou')return makeBunpouQuestion(item,type);
+  return makeKanjiQuestion(item,type);
+}
+
+function clearTimer(){if(S.quiz&&S.quiz.timerId){clearInterval(S.quiz.timerId);S.quiz.timerId=null}}
+
+function newQuiz(){clearTimer();
+const cfg=S.quizConfig;const p=getQuizPool();let items=[];
+if(p.length){const target=cfg.count==='all'?p.length:cfg.count;
+while(items.length<target)items=items.concat(shuffle(p));
+items=items.slice(0,target)}
+S.quiz={items,i:0,right:0,missed:[],q:null,locked:false,timerId:null,timeLeft:0};
+nextQuestion()}
+function nextQuestion(){const q=S.quiz;
+if(!q||q.i>=q.items.length){if(q)q.q=null;return}
+const item=q.items[q.i];let type=S.quizConfig.type;
+if(type==='mixed'){type='mixed'}
+q.q=makeQuestion(item,type,S.quizConfig.source||'kanji');q.locked=false}
+
+function startTimer(){clearTimer();const q=S.quiz;const secs=S.quizConfig.timer;
+if(!q||!secs)return;q.timeLeft=secs;
+const bar=document.getElementById('timerBar');if(bar)bar.style.width='100%';
+q.timerId=setInterval(()=>{q.timeLeft-=0.05;
+const b=document.getElementById('timerBar');
+if(b)b.style.width=Math.max(0,(q.timeLeft/secs)*100)+'%';
+if(q.timeLeft<=0){clearTimer();pick(null)}},50)}
+
+function pick(i){const q=S.quiz;if(!q||q.locked||!q.q)return;
+q.locked=true;clearTimer();
+const{opts,key}=q.q;
+const correct=i!==null&&opts[i]&&opts[i].correct;
+if(correct)q.right++;else if(!q.missed.includes(key))q.missed.push(key);
+bump(key,correct);
+document.querySelectorAll('.opt').forEach((b,j)=>{
+if(opts[j].correct)b.classList.add('correct');
+else if(j===i)b.classList.add('wrong');
+b.disabled=true});
+renderStats();
+setTimeout(()=>{q.i++;
+if(q.i>=q.items.length)renderQuiz();
+else{nextQuestion();renderQuiz()}},correct?750:1700)}
+
+function displayForKey(key){
+  if(!key)return'';
+  if(key.startsWith('v:'))return key.slice(2);
+  if(key.startsWith('b:'))return key.slice(2);
+  return key;
+}
+
+/* ===== SETUP ===== */
+function sourceTypeOptions(src){
+  if(src==='vocab')return[
+    ['mixed','Mixed'],['w2m','Word → Arti'],['m2w','Arti → Word'],['r2w','Kana → Word'],['w2r','Word → Kana']];
+  if(src==='bunpou')return[
+    ['mixed','Mixed'],['p2m','Pola → Arti'],['m2p','Arti → Pola']];
+  return[
+    ['mixed','Mixed'],['kanji2mean','Kanji → Meaning'],['mean2kanji','Meaning → Kanji'],['reading','Kanji → Reading'],['vocab','Vocabulary']];
+}
+function sourceLabel(src){
+  return src==='vocab'?'Kosakata':src==='bunpou'?'Bunpou':'Kanji';
+}
+function poolLabel(src){
+  return src==='vocab'?'Kosakata pool':src==='bunpou'?'Bunpou pool':'Kanji pool';
+}
+
+function renderSetup(){const view=document.getElementById('view');
+const cfg=S.quizConfig;const src=cfg.source||'kanji';
+const counts=poolCounts();
+const quizPoolSize=getQuizPool().length;
+const isAll=cfg.count==='all';
+const chip=(group,val,label,disabled)=>
+`<button class="chip ${String(cfg[group])===String(val)?'on':''}" data-v="${val}" ${disabled?'disabled':''}>${label}</button>`;
+let note='';
+if(quizPoolSize===0)note=`<p class="setup-note warn">Tidak ada item yang match kombinasi ini.</p>`;
+else if(quizPoolSize<4)note=`<p class="setup-note warn">Hanya ${quizPoolSize} item yang match.</p>`;
+const effectiveCount=isAll?quizPoolSize:
+Math.min(typeof cfg.count==='number'?cfg.count:20,quizPoolSize);
+view.innerHTML=`
+<div class="setup">
+<h2 class="setup-title">Quiz setup</h2>
+<div class="field">
+<label>Quiz source</label>
+<div class="chips" data-group="source">
+${chip('source','kanji','Kanji',false)}
+${chip('source','vocab','Kosakata',false)}
+${chip('source','bunpou','Bunpou',false)}
+</div>
+</div>
+<div class="field">
+<label>Number of questions <span class="lbl-note">${quizPoolSize} available</span></label>
+<div class="count-row">
+<input type="number" id="countInput" class="count-input" min="1" max="9999" inputmode="numeric"
+value="${isAll?quizPoolSize:(typeof cfg.count==='number'?cfg.count:20)}" ${isAll?'disabled':''}>
+<button type="button" class="chip ${isAll?'on':''}" id="allBtn">All (${quizPoolSize})</button>
+<div class="count-presets">
+<button type="button" data-c="10">10</button>
+<button type="button" data-c="25">25</button>
+<button type="button" data-c="50">50</button>
+<button type="button" data-c="100">100</button>
+</div></div>
+<p class="setup-note" style="margin-top:8px">Ketik angka, tap <b>All</b>, atau pakai preset.</p>
+</div>
+<div class="field">
+<label>Question type</label>
+<div class="chips" data-group="type">
+${sourceTypeOptions(src).map(([v,l])=>chip('type',v,l,false)).join('')}
+</div>
+${note||`<p class="setup-note">Source: <b>${sourceLabel(src)}</b>.</p>`}
+</div>
+<div class="field">
+<label>${poolLabel(src)} <span class="lbl-note">${quizPoolSize} match</span></label>
+<div class="chips" data-group="pool">
+${[['all','All'],['weak','Weak'],['new','Belum dilihat'],['mastered','Mastered']]
+.map(([v,l])=>chip('pool',v,`${l}<span class="cn">${counts[v]}</span>`,counts[v]<1)).join('')}
+</div>
+</div>
+<div class="field">
+<label>Time per question</label>
+<div class="chips" data-group="timer">
+${chip('timer',0,'Off',false)}
+${chip('timer',10,'10s',false)}
+${chip('timer',20,'20s',false)}
+${chip('timer',30,'30s',false)}
+</div>
+</div>
+<button class="btn btn-good" id="startQuiz" style="width:100%" ${quizPoolSize?'':'disabled'}>
+${quizPoolSize?`Start · ${effectiveCount} question${effectiveCount===1?'':'s'}`:'Tidak ada item'}
+</button>
+</div>
+<p class="kbd">Keyboard 1–4 untuk jawab.</p>`;
+view.querySelectorAll('.chips').forEach(group=>{
+group.onclick=e=>{const b=e.target.closest('.chip');
+if(!b||b.disabled)return;
+const key=group.dataset.group;const raw=b.dataset.v;
+if(key==='source'){
+  const oldSrc=cfg.source;
+  cfg.source=raw;
+  if(oldSrc!==raw){cfg.type='mixed';cfg.pool='all'}
+}else if(key==='timer'){cfg.timer=parseInt(raw,10)}
+else{cfg[key]=raw}
+saveConfig();renderSetup()}});
+const inp=view.querySelector('#countInput');
+if(inp){inp.oninput=()=>{const v=parseInt(inp.value,10);
+if(v>0){cfg.count=v;saveConfig();updateStartLabel()}};
+inp.onchange=()=>{const v=parseInt(inp.value,10);
+if(!v||v<1)cfg.count=1;else if(v>9999)cfg.count=9999;else cfg.count=v;
+saveConfig();renderSetup()}}
+const allBtn=view.querySelector('#allBtn');
+if(allBtn)allBtn.onclick=()=>{cfg.count='all';saveConfig();renderSetup()};
+view.querySelectorAll('.count-presets button').forEach(b=>{
+b.onclick=()=>{cfg.count=parseInt(b.dataset.c,10);saveConfig();renderSetup()}});
+const startBtn=document.getElementById('startQuiz');
+if(startBtn)startBtn.onclick=()=>{newQuiz();renderQuiz();renderStats()}}
+
+function updateStartLabel(){const btn=document.getElementById('startQuiz');
+if(!btn)return;const size=getQuizPool().length;
+const cfg=S.quizConfig;const c=cfg.count==='all'?size:
+Math.min(typeof cfg.count==='number'?cfg.count:20,size);
+btn.textContent=size?`Start · ${c} question${c===1?'':'s'}`:'Tidak ada item'}
+
+function renderQuiz(){if(!S.quiz){renderSetup();return}
+const q=S.quiz;
+if(q.i>=q.items.length||!q.q||!q.items.length){renderResults();return}
+const view=document.getElementById('view');
+const item=q.q;const pct=Math.round((q.i/q.items.length)*100);
+const timed=S.quizConfig.timer>0;
+const src=S.quizConfig.source||'kanji';
+view.innerHTML=`
+<div class="bar">
+<span>Q ${q.i+1} of ${q.items.length} · ${sourceLabel(src)}</span>
+<span style="display:flex;align-items:center;gap:12px">
+<span class="badge">Score ${q.right}</span>
+<button class="linkbtn" id="quizSettings">Settings</button>
+</span></div>
+<div class="track"><i style="width:${pct}%"></i></div>
+${timed?`<div class="track timer"><i id="timerBar" style="width:100%"></i></div>`:''}
+<div class="q-box">${item.prompt}</div>
+<div class="opts">
+${item.opts.map((o,i)=>`
+<button class="opt" data-i="${i}">
+<span class="key">${i+1}</span>
+<span>${o.label}</span>
+</button>`).join('')}
+</div>
+<p class="kbd">Press 1–4 to answer</p>`;
+view.querySelectorAll('.opt').forEach(btn=>{
+btn.onclick=()=>pick(parseInt(btn.dataset.i,10))});
+document.getElementById('quizSettings').onclick=()=>{
+if(q.i>0&&!confirm('End this round and change settings?'))return;
+clearTimer();S.quiz=null;renderQuiz()};
+startTimer()}
+
+function renderResults(){const view=document.getElementById('view');
+const q=S.quiz;const total=q.items.length;
+const pct=total?Math.round((q.right/total)*100):0;
+const grade=pct>=80?'優':pct>=50?'良':'努';
+const msg=pct>=80?'Excellent — you really know these.':
+pct>=50?'Good going. Keep drilling the misses.':
+'Keep at it. Repetition is the whole trick.';
+const missed=[...new Set(q.missed||[])];
+const src=S.quizConfig.source||'kanji';
+const typeLabel={mixed:'Mixed',kanji2mean:'Kanji → Meaning',
+mean2kanji:'Meaning → Kanji',reading:'Kanji → Reading',
+vocab:'Vocabulary',w2m:'Word → Arti',m2w:'Arti → Word',
+r2w:'Kana → Word',w2r:'Word → Kana',
+p2m:'Pola → Arti',m2p:'Arti → Pola'}[S.quizConfig.type]||S.quizConfig.type;
+const missedFont=src==='bunpou'?'14px':src==='vocab'?'16px':'22px';
+view.innerHTML=`
+<div class="empty">
+<div class="empty-k jp">${grade}</div>
+<h2>${q.right} / ${total} correct</h2>
+<p>${msg}</p>
+${missed.length?`
+<div class="section-lbl">Review these</div>
+<div class="missed">
+${missed.slice(0,30).map(k=>`<span class="jp" style="font-size:${missedFont}" title="${displayForKey(k)}">${displayForKey(k)}</span>`).join('')}
+${missed.length>30?`<span style="color:#8a7f72;font-size:14px">+${missed.length-30} more</span>`:''}
+</div>`:''}
+<div class="row" style="max-width:400px;margin:0 auto">
+<button class="btn btn-ghost" id="qSetup">Settings</button>
+<button class="btn btn-good" id="qAgain">Play again</button>
+</div>
+<p class="kbd" style="margin-top:18px">
+${sourceLabel(src)} · ${typeLabel} · ${total} question${total===1?'':'s'}${S.quizConfig.timer?` · ${S.quizConfig.timer}s limit`:''}
+</p></div>`;
+document.getElementById('qAgain').onclick=()=>{newQuiz();renderQuiz();renderStats()};
+document.getElementById('qSetup').onclick=()=>{clearTimer();S.quiz=null;renderQuiz()}}
+
+function renderList(){const view=document.getElementById('view');
+const all=pool();
+const known=all.filter(c=>boxOf(c.k)>=4).length;
+view.innerHTML=`
+<div class="bar">
+<span>${all.length} kanji · ${known} mastered</span>
+<button class="linkbtn" id="resetBtn">Reset progress</button>
+</div>
+<div class="grid">
+${all.map(c=>`
+<div class="tile ${boxOf(c.k)>=4?'known':''}" data-k="${c.k}">
+<div class="t-k jp">${c.k}</div>
+<div class="t-m">${c.m}</div>
+</div>`).join('')}
+</div>`;
+view.querySelectorAll('.tile').forEach(t=>{
+t.onclick=()=>openSheet(t.dataset.k)});
+document.getElementById('resetBtn').onclick=()=>{
+if(confirm('Erase all progress and stats?')){
+store.progress={};store.stats={right:0,wrong:0};
+persist();render()}}}
+
+function openSheet(k){const c=BY_K[k];if(!c)return;
+const p=store.progress[k]||{box:0,right:0,wrong:0};
+const vocabHtml=c.vocab.length?`
+<div class="sheet-vocab">
+<div class="v-lbl">Example vocabulary</div>
+${c.vocab.map(v=>`
+<div class="v-item">
+<b class="jp">${v[0]}</b>
+<span class="v-read jp">（${v[1]}）</span>
+<span class="romaji">${kanaToRomaji(v[1])}</span>
+— ${v[2]}
+</div>`).join('')}
+</div>`:'';
+const el=document.createElement('div');
+el.className='overlay';
+el.innerHTML=`
+<div class="sheet">
+<div class="sheet-kanji jp">${c.k}</div>
+<div class="sheet-meaning">${c.m}</div>
+<div class="sheet-readings">
+<div><span class="lbl jp">音</span>${c.on} <span class="romaji">${kanaToRomaji(c.on)}</span></div>
+<div><span class="lbl jp">訓</span>${c.kun} <span class="romaji">${kanaToRomaji(c.kun)}</span></div>
+</div>
+${vocabHtml}
+<div class="sheet-meta">
+<span class="badge">${c.lv}</span>
+<span class="badge">box ${p.box}/5</span>
+<span class="badge">${p.right||0} correct · ${p.wrong||0} wrong</span>
+</div>
+<button class="btn btn-ghost" style="width:100%" id="closeSheet">Close</button>
+</div>`;
+document.body.appendChild(el);
+el.onclick=e=>{if(e.target===el)el.remove()};
+el.querySelector('#closeSheet').onclick=()=>el.remove();
+document.addEventListener('keydown',function onEsc(e){
+if(e.key==='Escape'){el.remove();document.removeEventListener('keydown',onEsc)}})}
+
+function renderBunpou(){
+  const view=document.getElementById('view');
+  const lvFilter=(S.level==='ALL')?'ALL':(S.level==='LIFE'?'N5':S.level);
+  const list=BUNPOU.filter(b=>lvFilter==='ALL'||b.lv===lvFilter||S.level==='LIFE');
+  view.innerHTML=`
+  <div class="bar"><span>${list.length} pola bunpou · ${S.level==='ALL'?'N5 + N4':lvFilter}</span></div>
+  <div class="bunpou-list">
+  ${list.map(b=>`
+  <div class="bunpou-card">
+    <div class="bunpou-head">
+      <span class="badge">${b.lv}</span>
+      <span class="badge" style="background:#faf5ea;color:#8a7f72">${b.cat}</span>
+    </div>
+    <div class="bunpou-pat jp">${b.p}</div>
+    <div class="bunpou-romaji">${b.r}</div>
+    <div class="bunpou-mean">${b.m}</div>
+    <div class="bunpou-ex jp">${b.e}</div>
+    <div class="bunpou-exr">${b.er}</div>
+    <div class="bunpou-ext">${b.et}</div>
+  </div>`).join('')}
+  </div>`;
+}
+
+function renderPhrases(){
+  const view=document.getElementById('view');
+  view.innerHTML=`
+  <div class="bar"><span>Frasa harian N5 – N4</span></div>
+  ${PHRASES.map(g=>`
+  <div class="phrase-group">
+    <div class="section-lbl">${g.cat}</div>
+    <div class="phrase-list">
+    ${g.items.map(([jp,rom,id])=>`
+    <div class="phrase-card">
+      <div class="phrase-jp jp">${jp}</div>
+      <div class="phrase-rom">${rom}</div>
+      <div class="phrase-id">${id}</div>
+    </div>`).join('')}
+    </div>
+  </div>`).join('')}`;
+}
+
+function renderDict(){
+  const view=document.getElementById('view');
+  const lvFilter=(S.level==='ALL')?'ALL':(S.level==='LIFE'?'N5':S.level);
+  const cats=['ALL',...new Set(VOCAB.filter(v=>lvFilter==='ALL'||v.lv===lvFilter||S.level==='LIFE').map(v=>v.c))];
+  let items=VOCAB.filter(v=>lvFilter==='ALL'||v.lv===lvFilter||S.level==='LIFE');
+  if(S.dictCat!=='ALL')items=items.filter(v=>v.c===S.dictCat);
+  const q=(S.dictSearch||'').trim().toLowerCase();
+  if(q)items=items.filter(v=>
+    v.w.includes(q)||v.k.includes(q)||(v.r||'').toLowerCase().includes(q)||v.m.toLowerCase().includes(q));
+  view.innerHTML=`
+  <div class="bar"><span>${items.length} kata · ${S.level==='ALL'?'N5 + N4':lvFilter}</span></div>
+  <input type="search" class="dict-search" id="dictSearch" placeholder="Cari kanji / kana / romaji / arti…" value="${S.dictSearch.replace(/"/g,'&quot;')}">
+  <div class="chips" style="margin-bottom:14px" id="dictCats">
+  ${cats.map(c=>`<button class="chip ${S.dictCat===c?'on':''}" data-c="${c}">${c}</button>`).join('')}
+  </div>
+  <div class="dict-list">
+  ${items.map(v=>`
+  <div class="dict-card">
+    <div><span class="dict-jp jp">${v.w}</span> <span class="dict-kana jp">${v.k}</span></div>
+    <div class="dict-rom">${v.r}</div>
+    <div class="dict-mean">${v.m}</div>
+    <div class="dict-meta">
+      <span class="badge">${v.lv}</span>
+      <span class="badge" style="background:#faf5ea;color:#8a7f72">${v.c}</span>
+    </div>
+  </div>`).join('')}
+  </div>`;
+  const inp=document.getElementById('dictSearch');
+  if(inp){inp.oninput=()=>{S.dictSearch=inp.value;renderDict()}}
+  document.querySelectorAll('#dictCats .chip').forEach(b=>{
+    b.onclick=()=>{S.dictCat=b.dataset.c;renderDict()}})}
+
+function renderStats(){const el=document.getElementById('stats');
+const items=pool();
+const seen=items.filter(c=>store.progress[c.k]).length;
+const known=items.filter(c=>boxOf(c.k)>=4).length;
+const total=store.stats.right+store.stats.wrong;
+const acc=total?Math.round((store.stats.right/total)*100):0;
+el.innerHTML=`
+<span class="stat">Seen <b>${seen}/${items.length}</b></span>
+<span class="stat">Mastered <b>${known}</b></span>
+<span class="stat">Accuracy <b>${acc}%</b></span>`}
+
+function render(){
+  if(S.mode==='cards')renderCards();
+  else if(S.mode==='quiz')renderQuiz();
+  else if(S.mode==='bunpou')renderBunpou();
+  else if(S.mode==='phrases')renderPhrases();
+  else if(S.mode==='dict')renderDict();
+  else renderList();
+  renderStats()}
+
+document.getElementById('tabs').addEventListener('click',e=>{
+const b=e.target.closest('button');if(!b)return;
+S.mode=b.dataset.mode;
+document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));
+if(S.mode==='cards')newDeck();
+render()});
+
+document.getElementById('levels').addEventListener('click',e=>{
+const b=e.target.closest('button');if(!b)return;
+S.level=b.dataset.level;
+document.querySelectorAll('#levels button').forEach(x=>x.classList.toggle('on',x===b));
+clearTimer();S.quiz=null;
+if(S.mode==='cards')newDeck();
+render()});
+
+document.addEventListener('keydown',e=>{
+if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+if(S.mode==='cards'){
+if(S.idx>=S.queue.length)return;
+if(e.code==='Space'){e.preventDefault();
+S.flipped=!S.flipped;
+const fc=document.getElementById('fc');
+if(fc)fc.classList.toggle('flipped',S.flipped)}
+else if(e.key==='ArrowLeft')answer(false);
+else if(e.key==='ArrowRight')answer(true)}
+else if(S.mode==='quiz'&&S.quiz&&S.quiz.q){
+const n=parseInt(e.key,10);
+if(n>=1&&n<=4){const b=document.querySelectorAll('.opt')[n-1];
+if(b&&!b.disabled)b.click()}}});
+
+newDeck();
+render();
+</script>
+</body>
+</html>
